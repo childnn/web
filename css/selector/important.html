@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        h1 {
+            /* !important 表示该属性不可覆盖, 不受 就近原则 影响 */
+            color: red !important;
+        }
+
+        #not {
+            color: #000;
+        }
+    </style>
+
+</head>
+<body>
+
+<h1 id="not">aaaaaaaaa</h1>
+<h1>bbbbbbbbbb</h1>
+
+
+</body>
+</html>

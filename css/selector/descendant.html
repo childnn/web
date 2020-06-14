@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        h1 {
+            color: red;
+        }
+
+        em {
+            color: red;
+        }
+
+        /* 后代选择器 */
+        h1 em {
+            color: green;
+        }
+
+        /* div 下的所有子元素下的 p 元素 */
+        div * p {
+            color: green;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>h1111111111111 <em>h1下的emmmmmmmmmmm</em></h1>
+<em>emmmmmmmmmmm</em>
+
+
+<hr>
+
+<div>
+    1111
+    <p>22222</p>
+    <div>33333
+        <p>变色</p>
+    </div>
+</div>
+
+
+</body>
+</html>

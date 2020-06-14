@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+/* body 的第一个子元素 */
+body/*:first-child*/ {
+    background: aqua;
+    color: red;
+    text-align: center;
+    font-style: italic;  /* 倾斜 */
+}
+

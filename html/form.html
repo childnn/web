@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表单</title>
+</head>
+<body>
+
+<!-- 走马灯 -->
+<marquee>hello, hello</marquee>
+
+<!-- cc: carbon copy. 抄送 -->
+<form action="mailto:1@qq.com;13163249276@163.com?cc=274979673@qq.com&subject='abc'&body=bd" method="post">
+    <label>
+        <input type="text" name="abc" value=""/>
+    </label> <br>
+    <input type="file" name="f" value=""/> <br>
+
+    <label>
+        <input type="search" name="sch" value=""/>
+    </label> <br>
+    <input type="image" name="img" value="" src="IU.jpg" width="192" height="108" alt="图片丢了"/> <br>
+    <label>
+        <input type="color" name="col" value=""/>
+    </label> <br>
+    <label>
+        <!-- name 区分 单选框类别 -->
+        <input type=radio name="sex" value="m">male
+        <input type="radio" name="sex" value="fm">female
+    </label>
+    <br>
+    <label>
+        <input type="checkbox" name="a">male
+        <input type="checkbox" name="a" checked> female
+        <input type="checkbox" name="a">unknown
+    </label>
+    <br>
+    <label>
+        <input type="datetime-local" name="date"> <br>
+        <input type="date" name="date">
+    </label>
+    <br>
+    <label for="">
+        <select name="type" id="" required>
+            <option value="">请选择</option>
+            <option value="1" selected>Miner</option>
+            <option value="2">Puffer</option>
+            <option value="3">Snipey</option>
+        </select>
+    </label>
+
+    <br>
+    <label>
+        <input type="range" name="范围">
+        <input type="number">
+        <br>
+        <meter min="10" max="123" value="50"></meter>
+    </label>
+    <br>
+
+    <datalist>
+        <option value="0" label="Normal"></option>
+        <option value="100" label="Max" name="aaa"></option>
+    </datalist>
+
+
+    <input type="submit" name="s" value="发邮件"/> <br>
+
+</form>
+
+</body>
+</html>

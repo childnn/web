@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function fastForward() {
+            v.playbackRate = 2
+        }
+
+        function slowBackward() {
+            v.playbackRate = 1
+        }
+
+        function currentTime() {
+            v.currentTime = 23.3
+        }
+    </script>
+</head>
+<body>
+
+
+<!-- controls: 控制条-->
+<audio id="v" src="陈一发儿%20-%20童话镇.mp3p3" autoplay controls preload="auto" loop></audio>
+<button onclick="fastForward()">加速</button>
+<button onclick="slowBackward()">减速</button>
+<button onclick="currentTime()">时间</button>
+<video controls="controls" autoplay="autoplay" preload="auto">
+    <source src="file:///E:/things/musics/%E9%99%88%E4%B8%80%E5%8F%91%E5%84%BF%20-%20%E7%AB%A5%E8%AF%9D%E9%95%87.mp3"
+            type="audio/mp3">
+</video>
+
+<video controls="" autoplay="" name="media">
+    <source src="file:///E:/this-is-us/%E6%88%91MZ%E4%B8%80%E5%A4%A9%20S01/S01E1.mp4"
+            type="video/mp4">
+</video>
+
+</body>
+</html>

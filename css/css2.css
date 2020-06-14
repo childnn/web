@@ -1,0 +1,8 @@
+/* body 的第一个子元素 */
+h1:first-child {
+    background: yellow;
+    color: red;
+    text-align: center;
+    font-style: italic;  /* 倾斜 */
+}
+
