@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Don't resize me, I'm ticklish!</title>
+    <script>
+        function resize() {
+            let ele = document.getElementById("display");
+            ele.innerHTML += " that tickles!";
+
+        }
+    </script>
+</head>
+<body>
+
+<p id="display">Whatever you do, don't resize this window! I'm warning you!</p>
+
+<script>
+    // 网页加载完毕才运行方法,
+    window.onresize = resize;
+</script>
+</body>
+</html>

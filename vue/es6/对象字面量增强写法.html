@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script>
+
+
+  // const obj = new Object();
+  // const obj = {}; // 对象字面量
+  const obj = {
+    name: 'why',
+    age: 18,
+    run: function () {
+      console.log('run');
+    }
+  }
+
+  // 1. 属性增强写法
+  const name = 'why';
+  const age = 18;
+  const height = 1.88;
+
+  // ES5
+  const o1 = {
+    name: 'name', // 字符串就是其本身
+    age: age,
+    height: height,
+    run: function () {
+    }
+  };
+  console.log(o1);
+
+  // ES6: 对象增强写法
+  const o2 = {
+    name,
+    age,
+    height,
+    // 方法的增强写法
+    run() {
+
+    }
+  };
+  console.log(o2);
+
+
+</script>
+
+</body>
+</html>

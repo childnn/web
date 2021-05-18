@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pirates Booty</title>
+    <script>
+        window.onload = init;
+        function init() {
+            var map = document.getElementById("map");
+            map.onmousemove = showCoords; // 鼠标移动事件: 用户在元素上移动鼠标时发生.
+        }
+
+        /**
+         * 以下属性属于 event 对象本身, 而非 target 对象
+         * clientX/clientY: 鼠标相对于浏览器窗口左边缘和上边缘的距离, 单位 px
+         * screenX/screenY: 鼠标相对于屏幕左边缘和上边缘的距离, 单位 px
+         * pageX/pageY: 鼠标相对于网页左边缘和上边缘的距离, 单位 px
+         * @param eventObj
+         */
+        function showCoords(eventObj) {
+            var x = eventObj.pageX;
+            var y = eventObj.pageY;
+            let map = document.getElementById('coords');
+            map.innerHTML = "Map coordinates: " + x + ", " + y;
+        }
+
+    </script>
+</head>
+<body>
+
+<img src="map.jpg" alt="map" id="map"/>
+<p id="coords">Move mouse to find coordinates...</p>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Click me!</title>
+
+    <style>
+        body, button {
+            margin: 10px;
+        }
+        div {
+            padding: 10px;
+        }
+    </style>
+    <script>
+        // 不使用闭包.
+   /*     var count = 0;
+
+        function handleClick() {
+            var message = 'You clicked me ';
+            var div = document.getElementById('message');
+            count++;
+            div.innerHTML = message + count + ' times!';
+        }
+
+        window.onload = function () {
+            var button = document.getElementById('clickme');
+            button.onclick = handleClick;
+        };*/
+
+        // 不使用看起来合情合理, 只是其中的全局变量可能会带来麻烦.
+
+        window.onload = function () {
+            var count = 0;
+            var message = 'You clicked me ';
+            var div = document.getElementById('message');
+
+            let button = document.getElementById('clickme');
+            // 这个函数有 三个自由变量: div, message, count.
+            // 因此将创建一个闭包. 也就是说,将把一个闭包赋给按钮的属性 onclick.
+            button.onclick = function () {
+                count++;
+                div.innerHTML = message + count + ' times!';
+            };
+        };
+
+    </script>
+</head>
+<body>
+
+<button id="clickme">Click me!</button>
+<div id="message"></div>
+
+</body>
+</html>

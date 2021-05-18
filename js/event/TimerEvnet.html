@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timer Event</title>
+    <script>
+        /**
+         * 与 onload 一样, setTimeout 属于 全局对象 window.
+         * 调用 setTimeout 时, 实际上创建了一个定时器, 并指定了与之相关联的处理程序.
+         * 可以创建任意数量的定时器,浏览器将跟踪每个定时器及其相关联的处理程序.
+         */
+        var timeout = setTimeout(timerHandler, 5000);
+        console.log(timeout);
+        function timerHandler(eventObj) {
+            alert("Hey what are you doing just sitting there starting at a blank screen?");
+        }
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // 输出选中的文件列表相关的信息
+        function fileinfo(files) {
+            for (var i = 0; i < files.length; i++) {
+                var f = files[i];
+                console.log(f.name,  // 只是名字, 没有路径
+                    f.size, // size, type 是 blob 的属性
+                    f.type,
+                    f.lastModifiedDate, // 日期
+                    f.lastModified); // 毫秒
+            }
+
+        }
+    </script>
+</head>
+<body>
+<!-- 上传多个图片 -->
+<input type="file" accept="image/*" multiple onchange="fileinfo(this.files)">
+
+</body>
+</html>

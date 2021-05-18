@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            box-sizing: border-box;
+        }
+        body{
+            background: url("") no-repeat center;
+        }
+        .rg_layout {
+            width: 900px;
+            height: 500px;
+            border: 8px solid #EEEEEE;
+            background-color: white;
+
+            margin: auto;
+            margin-top: 15px;
+        }
+        .rg_center{
+
+        }
+        .rg_left {
+            border: 1px solid red;
+            float: left;
+        }
+        .rg_left > p:first-child{
+            color: #FF0000;
+            font-size: 20px;
+        }
+        .rg_left > p:last-child{
+            color: #FF0000;
+            font-size: 20px;
+        }
+        .rg_right p a{
+            color: #FF0000;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="rg_layout">
+        <div class="rg_left">
+            <p class="p_reg">新用户注册</p>
+            <p>user register</p>
+        </div>
+
+        <div class="rg_center">
+            <form action="" method="get"> <!--get 浏览器显示提交内容-->
+                <table border="1" align="center" width="">
+                    <!--用户名/密码/性别/爱好/头像上传/所在城市/个人简介/重置-->
+                    <!--1 用户名-->
+                    <tr>
+                        <td>
+                            <label for="user">用户名</label>
+                        </td>
+                        <td>
+                            <input type="text" name="username" id="user" placeholder="请输入用户名">
+                        </td>
+                    </tr>
+                    <!--2 密码-->
+                    <tr>
+                        <td>
+                            <label for="pass">密码</label>
+                        </td>
+                        <td>
+                            <input type="password" name="password" id="pass" placeholder="请输入密码">
+                        </td>
+                    </tr>
+                    <!--3 email-->
+                    <tr>
+                        <td>
+                            <label for="email">Email</label>
+                        </td>
+                        <td>
+                            <input type="email" name="mail" id="email" placeholder="请输入邮箱">
+                        </td>
+                    </tr>
+                    <!--4 手机号-->
+                    <tr>
+                        <td>
+                            <label for="tel">手机号</label>
+                        </td>
+                        <td>
+                            <input type="text" name="tele" id="tel" placeholder="请输入手机号">
+                        </td>
+                    </tr>
+                    <!--5 性别 单选框-->
+                    <tr>
+                        <td>
+                            <label>性别</label>
+                        </td>
+                        <td>
+                            <input type="radio" name="sex" value="male">男
+                            <input type="radio" name="sex" value="female" checked>女 <!--默认-->
+                        </td>
+                    </tr>
+                    <!--6 出生日期-->
+                    <tr>
+                        <td>
+                            <label for="bir">出生日期</label>
+                        </td>
+                        <td>
+                            <input type="date" name="birthday" id="bir">
+                        </td>
+                    </tr>
+                    <!--7 爱好 复选框-->
+                    <tr>
+                        <td>
+                            <label for="hob">爱好</label>
+                        </td>
+                        <td>
+                            <input type="checkbox" name="hobby" id="hob" value="抽烟">抽烟
+                            <input type="checkbox" name="hobby" value="喝酒">喝酒
+                            <input type="checkbox" name="hobby" value="烫头">烫头
+                        </td>
+                    </tr>
+                    <!--8 头像上传-->
+                    <tr>
+                        <td>
+                            <label for="head">上传头像</label>
+                        </td>
+                        <td>
+                            <input type="file" name="head" value="h" id="head">
+                        </td>
+                    </tr>
+                    <!--9 所在城市 下拉框-->
+                    <tr>
+                        <td>
+                            <label for="province">所在城市</label>
+                        </td>
+                        <td>
+                            <select name="CITY" id="province">
+                                <option value="上海">上海</option>
+                                <option value="北京">北京</option>
+                                <option value="武汉" selected>武汉</option>
+                                <option value="广州" selected>广州</option>
+                                <option value="深圳" selected>深圳</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <!--10 个人简介-->
+                    <tr>
+                        <td>
+                            <label for="pre">个人简介</label>
+                        </td>
+                        <td>
+                            <textarea name="presentation" id="pre" cols="30" rows="5"></textarea>
+                        </td>
+                    </tr>
+                    <!--11 验证码-->
+                    <tr>
+                        <td>
+                            <label for="pas">验证码</label>
+                        </td>
+                        <td>
+                            <input type="text" name="word" id="pas">
+                            <img src="./verify_code.jpg" alt="正在加载..." height="15">
+                        </td>
+                    </tr>
+                    <!--12 注册.重置-->
+                    <tr>
+                        <td>
+                            <input type="submit" name="submit" value="登录">
+                        </td>
+                        <td>
+                            <input type="reset" name="reset" value="重置">
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div class="rg_right">
+            <p>已有账号? <a href="">立即登录</a></p>
+        </div>
+    </div>
+</body>
+</html>

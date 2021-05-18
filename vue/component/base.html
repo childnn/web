@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!-- 使用组件 -->
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+  <!-- 不能大写: html 大小写不敏感, 这里只能识别小写 -->
+  <!--<localCpn></localCpn>-->
+  <localcpn></localcpn>
+</div>
+
+<hr>
+
+<div id="app1">
+  <!-- 使用组件 -->
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+  <my-cpn></my-cpn>
+  <!-- 局部组件在 非指定实例无法识别 -->
+  <!--<localcpn></localcpn>-->
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+  // 1. 创建组件构造器对象
+  // ES6 使用 `` 定义字符串, 可以实现优雅换行(tab上方的键)
+  const cpn = Vue.extend({
+    template: `
+      <div>
+        <h2>我是标题</h2>
+        <p>我是内容, 哈哈哈</p>
+        <p>我是内容, 呵呵呵</p>
+      </div>`
+  });
+
+  const cpnLocal = Vue.extend({
+    template: `
+      <div>
+        <h2>局部组件</h2>
+        <p>我是局部组件内容, 哈哈哈</p>
+        <p>我是局部组件内容, 呵呵呵</p>
+      </div>`
+  });
+
+  // 2. 注册组件: 全局组件, 可以在多个 vue 实例下使用
+  Vue.component('my-cpn', cpn);
+
+  // 这是一个 vue 实例
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: ''
+    },
+    // 局部组件
+    components: {
+      // key: 使用组件时的标签名
+      localcpn: cpnLocal
+    }
+  });
+
+  const app1 = new Vue({
+    el: '#app1',
+    data: {
+      message: ''
+    }
+  });
+</script>
+
+</body>
+</html>

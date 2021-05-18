@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Guess</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+        img {
+            margin: 20px; /* 图像外边距指定为 20 像素. */
+        }
+    </style>
+    <script>
+        // 在 JS 中, 定义函数的顺序无关紧要
+        window.onload = init;
+        function init() {
+            /**
+             * getElementByTagName 返回一个 NodeList, 其中存储 element 对象, NodeList 类似数组, 可以对其进行迭代.
+             * */
+            var images = document.getElementsByTagName("img");
+            for (var i = 0; i < images.length; i++) {
+                let image = images[i];
+                let src = image.src;
+                // 如果图片已经是清晰的了,就不再触发事件了
+                image.onclick = showAnswer;
+            }
+        }
+
+        /**
+         * 1. 为何 setTimeout 不向事件处理程序传递一个事件对象?
+         *  事件对象主要用于 DOM 事件处理程序. setTimeout 不向处理程序传递事件对象, 因为时间事件并非由特定的元素触发.
+         * 2. showAnswer 本身是一个 事件处理程序, 在其代码中创建了另一个事件处理程序 reBlur.
+         *  实际上在 JS 中, 这样的作法很常见: 异步编程.
+         *
+         * */
+        function showAnswer(eventObj) {
+            // document.getElementById("msg").innerHTML = eventObj;
+            let image = eventObj.target; // 触发事件的元素
+            if (image.src.indexOf("blur") !== -1) {
+                console.log(eventObj);
+                image.src = image.id + ".jpg";
+                setTimeout(reBlur, 2000, image); // 可变参数, 传递给回调函数(事件处理程序)
+            } else {
+                alert("已经是清晰的图片了啊,请勿重复点击...");
+            }
+        }
+
+        function reBlur(image) {
+            image.src = image.id + "blur.jpg";
+        }
+
+
+        /**
+         * 此前不知道 setTimeout 可以多参数.
+         * IE8 及更早的版本不支持 setTimeout 的额外参数.
+         */
+        // 事件触发时,导致一个 event 对象被创建.
+        // event 对象可以获取有关事件的信息. 如 事件类型, 触发事件的元素等.
+        // function showAnswer(eventObj) {
+        //     // document.getElementById("msg").innerHTML = eventObj;
+        //     let image = eventObj.target; // 触发事件的元素
+        //     if (image.src.indexOf("blur") !== -1) {
+        //         console.log(eventObj);
+        //         image.src = image.id + ".jpg";
+        //         reBlur(image); // 在用户点击两秒后, 图片复原模糊状态.
+        //     } else {
+        //         alert("已经是清晰的图片了啊,请勿重复点击...");
+        //     }
+        // }
+        //
+        // function reBlur(image) {
+        //     setTimeout(() => image.src = image.id + "blur.jpg", 2000);
+        // }
+
+
+    </script>
+</head>
+<body>
+<span id="msg">图片将在两秒后复原</span> <br/>
+
+<img id="zero" src="zeroblur.jpg" alt="Image"/>
+<img id="one" src="oneblur.jpg" alt="Image"/>
+<img id="two" src="twoblur.jpg" alt="Image"/>
+<img id="three" src="threeblur.jpg" alt="Image"/>
+<img id="four" src="fourblur.jpg" alt="Image"/>
+<img id="five" src="fiveblur.jpg" alt="Image"/>
+
+</body>
+</html>

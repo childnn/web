@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <!-- 无法显示引入子组件 cpn1, 只能通过注册到 Vue 实例的组件间接引入 -->
+  <cpn2></cpn2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  // 1. 创建第一个组件: 子组件
+  const cpnC1 = Vue.extend({
+    template: `
+        <div>
+          <h2>我是子组件标题</h2>
+          <p>我是子组件内容,哈哈哈</p>
+        </div>
+    `
+  });
+  // 2. 创建第二个组件: 父组件
+  const cpnC2 = Vue.extend({
+    /* 引入子组件到 template */
+    template: `
+        <div>
+          <h2>我是标题</h2>
+          <p>我是内容,哈哈哈</p>
+          <cpn1></cpn1>
+        </div>
+    `,
+    // 把组件1 放在 组件2 的构造器中
+    // 组件2 放在 Vue 实例中注册
+    components: {
+      cpn1: cpnC1
+    }
+  });
+
+  // Vue 实例: 可以认为是顶层组件 - root 组件
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: ''
+    },
+    // 注册组件2 为 局部组件
+    components: {
+      cpn2: cpnC2
+    }
+  });
+</script>
+
+</body>
+</html>

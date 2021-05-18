@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/jquery-3.2.1.min.js"></script>
+    <script>
+        function debug(msg) {
+            var log = $('#debuglog'); // 找到要显示 msg 的元素.
+            if (log.length === 0) { // 如果不存在则创建之.
+                log = $('<div id="debuglog"><h1>Debug Log</h1></div>');
+                log.appendTo(document.body); // 并将其追加到 body 里.
+            }
+            log.append($('<pre/>').text(msg)); // 将 msg 包装在 <pre> 中, 在追加到 log 里.
+        }
+    </script>
+</head>
+<body>
+
+Hello
+<button onclick="debug('debug button 1');">Debug1</button>
+<button onclick="debug('debug button 2');">Debug1</button>
+World
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+<!--
+const 关键字
+常量
+建议: 在 ES6 开发中, 优先使用 const, 只有需要改变某一个标识符时才使用 let
+
+-->
+
+<script>
+ // 1. const 变量一旦被赋值, 不可修改(再赋值)
+  const name = "jack";
+  // name = 'rose'; // error: Uncaught TypeError: Assignment to constant variable.
+
+  // 2. const 变量必须初始化
+  // const a; // const variable without initializer is not allowed
+
+  // 3. const 本身不可改变, 但可改变对象内部属性
+ const obj = {
+   name: 'name',
+   age: 18
+ };
+
+ console.log(obj);
+
+ obj.name = 'jack';
+
+ console.log(obj);
+
+</script>
+
+</body>
+</html>

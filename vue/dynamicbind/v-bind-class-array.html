@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!-- 数组语法 -->
+<div id="app">
+  <!-- 变量 -->
+  <h2 :class="[active, line]" class="title">点击 f12 查看</h2>
+  <!-- 字符串 -->
+  <h2 :class="['active', 'line']" class="title">区别</h2>
+  <h2 :class="getClasses()" class="title">区别</h2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊',
+      active: 'aaaaaa',
+      line: 'bbbbb'
+    },
+    methods: {
+      getClasses: function () {
+        return [this.active, this.line];
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

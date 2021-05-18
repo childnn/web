@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cookie</title>
+    <script src="cookie.js" type="text/javascript"></script>
+    <script>
+        const USERNAME_KEY = 'username';
+        window.onload = function () {
+            if (navigator.cookieEnabled) {
+                alert('Cookie enabled!');
+                var username = readCookie(USERNAME_KEY);
+                if (username) {
+                    alert('Hello,' + username);
+                } else {
+                    username = prompt('Hello.', 'Please enter your name');
+                    writeCookie(USERNAME_KEY, username, 5);
+                }
+            } else {
+                alert('Your browser does not support/enabled cookie.');
+            }
+        };
+    </script>
+</head>
+<body>
+
+<div style="color: aquamarine; text-align: center">
+    <input type="button" value="remove cookie" onclick="eraseCookie(USERNAME_KEY)"
+    style="color: green;">
+</div>
+
+</body>
+</html>

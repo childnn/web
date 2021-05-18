@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Image Guess</title>
+    <style>
+        body {
+            margin: 20px;
+        }
+        img {
+            margin: 20px; /* 图像外边距指定为 20 像素. */
+        }
+    </style>
+    <script>
+        // 在 JS 中, 定义函数的顺序无关紧要
+        window.onload = init;
+        function init() {
+            var images = document.getElementsByTagName("img");
+            for (var i = 0; i < images.length; i++) {
+                let image = images[i];
+                let src = image.src;
+                // 鼠标移动到图片时触发
+                image.onmouseover = showAnswer;
+                // 鼠标移出图片时触发
+                image.onmouseout = reBlur;
+            }
+        }
+
+        function showAnswer(eventObj) {
+            // console.log(eventObj);
+            let img = eventObj.target;
+            let src = img.src;
+            // 不存在 blur, 说明已经变为 清晰图片
+            if (src.indexOf("blur") !== -1) {
+                img.src = img.id + ".jpg";
+            }
+        }
+
+        function reBlur(eventObj) {
+            let img = eventObj.target;
+            let src = img.src;
+            if (src.indexOf("blur") === -1) {
+                img.src = img.id + "blur.jpg";
+            }
+        }
+
+
+    </script>
+</head>
+<body>
+<span id="msg"></span> <br/>
+
+<img id="zero" src="zeroblur.jpg" alt="Image"/>
+<img id="one" src="oneblur.jpg" alt="Image"/>
+<img id="two" src="twoblur.jpg" alt="Image"/>
+<img id="three" src="threeblur.jpg" alt="Image"/>
+<img id="four" src="fourblur.jpg" alt="Image"/>
+<img id="five" src="fiveblur.jpg" alt="Image"/>
+
+</body>
+</html>

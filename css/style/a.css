@@ -1,0 +1,156 @@
+/*外部样式*/
+
+/* 使用 @media 规则
+    其后就是查询规则
+    对于与这个查询匹配的设备,将所有使用的规则放在大括号里.
+    所以, 如果设备屏幕宽度大于 480px 就会使用这些规则.
+*/
+@media screen and (min-device-width: 481px){
+    #guarantee {
+        margin-right: 250px;
+    }
+}
+/*
+ 如果设备屏幕宽度小于等于 480px, 就会使用这些规则
+*/
+@media screen and (max-device-width: 480px){
+    #guarantee {
+        margin-right: 30px;
+    }
+}
+/*
+ 如果要打印这个页面, 就会使用这些规则.
+*/
+@media print {
+    body {
+        font-family: Times, 'Times New Roman', serif;
+    }
+}
+
+/*
+  所有其他规则会应用于所有页面,因为它们并未包含在一个 @media 规则中.
+*/
+p.specials {
+    color: red;
+}
+
+
+/*
+ 每个 font-family 包含一组有共同特征的字体. 共有 5 个字体系列:
+  sans-serif, serif, monospace, cursive, fantasy.
+  每个 字体系列 都包含大量字体, 所以你在这个页面上看到的只是每个字体
+  系列中很少的几个字体例子.
+  serif 字体系列有衬线, 类新闻报纸排版.
+  sans-serif 字体系列没有衬线, 在计算机上更易识读.
+  monospace: 固定宽度的字符. 一个 i 和一个 m 子啊水平方向的宽度相同. 多用于软件代码示例.
+  cursive: 类似手写字体. 见于标题.
+  fantasy: 装饰性字体.
+  注: 如果一个字体包含多个单词, 则使用引号括起来
+  -------------------------
+  如果希望使用用户浏览器不支持的字体, 可以使用 web 字体(服务器指定自定)
+  字体文件是以 .woff 为后缀的文件.
+  woff: Web open font format.   web 开放字体格式.
+*/
+body {
+    /*
+       候选字体列表 + 字体系列.
+      浏览器从左往右 依次找, 查看当前用户的计算机是否支持对应字体,
+      如果前面的特定字体都不支持, 则使用 浏览器默认的 "sans-serif" 字体系列的字体.
+     */
+    font-family: Verdana, Geneva, Arial, sans-serif;
+
+    /**
+     大多情况下, 默认的 body 字体大小为 16px.
+     <h1> 是 默认文本字体大小的 200%
+     <h2> 是 默认文本字体大小的 150%
+     <h3> 是 默认文本字体大小的 120%
+     <h4> 是 默认文本字体大小的 100%
+     <h5> 是 默认文本字体大小的 90%
+     <h6> 是 默认文本字体大小的 60%
+     默认的, <h4> 字体大小与 body 字体大小相同.
+    字体大小:
+      1. 按像素指定大小: px. 数字和 px 之间不可有空格.
+         像素 是指 字体高度为 xx 像素.
+      2. 按百分比指定大小: %. 相对于 父元素 字体大小的百分比.
+      3. 按比例因子: em.  表示字体大小的比例
+      4. 关键字: xx-small. x-small, small, medium, large, x-large, xx-large.
+            浏览器会把这些关键字转换为 像素值, 会使用浏览器中定义的默认值来完成这个转换.
+     如何指定字体:
+        1. 选择一个关键字(small/medium), 指定它作为 body 规则中的字体大小. 这相当于页面的默认字体.
+        2. 使用 em 或 %, 相对于 body 字体大小指定其他元素的字体大小.
+     */
+    /*font-size: 20px;*/
+    /*font-size: 150%;*/
+    font-size: 1.2em;
+
+    /**
+    字体粗细.
+    可以设置 100-900 之间的一个数(100的倍数),可能没有得到字体和浏览器的广泛支持,不常用.
+     */
+    font-weight: bold; /* lighter, normal, bold, bolder */
+
+    /**
+    字体风格.
+        italic: 斜体.
+        oblique: 倾斜字体.
+     */
+    font-style: italic;
+
+    /*
+    颜色: 书上的颜色是印刷页反射的光. 而在计算机上,光是从屏幕发出的,
+        所以这些颜色看起来可能与 web 页面上显示的颜色稍有不同.
+    1. 三种颜色的百分比都设置为 0%, 表示屏幕不会发出任何光, 即显示黑色.
+    2. 如果需要指定具体的数值, 数值范围为 0-255, 按需要的比例算可以得到对应的数值.
+    3. 使用 "十六进制码" hexadecimal 的方式, 以 # 开头, 紧跟 6 位十六进制数(每个两位数字分别表示 red green blue, 分别表示 0-255).
+       如果 每一组分量 种两位数字相同,可以简写. eg. #ccbb00 简写为 #cb0, 不过 #ccbb10 不能使用缩写.
+    */
+    /**
+    字体颜色: 实际上控制着一个元素的前景色, 所以它会控制文本和边框颜色.
+    不过也可以用 border-color 属性为边框指定自己的颜色.
+     */
+    color: silver;
+    /*border-color: #0f0f0f;*/
+
+    /**
+    背景色
+     */
+    background-color: rgb(0, 0, 0) /* #0f0f0f */;
+    /*background-color: rgb(80%, 40%, 0%) !* #0f0f0f *!;*/
+    background-image: url("../../img/IU.jpg");
+    background-repeat: repeat-x; /* 图像在水平方向平铺. */
+
+    /*
+      文本装饰: 可以同时指定多个属性值.
+    */
+    text-decoration: overline line-through; /* 文本修饰: none, underline, overline, line-through */
+    text-align: center;
+}
+
+h1 {
+    color: #cc6600;
+    /* 下边框: 一条细的虚线 */
+    border-bottom: thin dotted #888888;
+}
+
+/* 未访问 */
+a:link {
+    color: green !important;
+}
+
+/* 已访问 */
+a:visited {
+    color: red !important;
+}
+
+/* 悬停 */
+a:hover {
+    color: yellow !important;
+}
+
+a:active {
+    color: white !important;
+}
+
+a:focus {
+    color: #0f0f0f;
+}

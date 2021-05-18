@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>读取文件的前 4 个字节</title>
+    <script>
+        // 检测指定的 blob 的前 4 个字节
+        // 如果 这个魔数标识文件的类型, 那么就将其异步地设置成 Blob 地属性
+        function typefile(file) {
+            var slice = file.slice(0, 4); // 只读取文件其实部分
+            var reader = new FileReader();
+            reader.readAsArrayBuffer(slice); // 读取文件片段
+            reader.onload = function (e) {
+                var buffer = reader.result; // ArrayBuffer 形式的结果
+                var view = new DataView(buffer); // 访问结果中的字节内容
+                var magic = view.getUint32(0, false); // 以高位优先字节顺序, 读取 4 个字节
+                switch (magic) { // 检测文件类型
+                    case 0x89504E47:
+                        file.verified_type = 'image/png';
+                        break;
+                    case 0x47494638:
+                        file.verified_type = 'image/gif';
+                        break;
+                    case 0x25504446:
+                        file.verified_type = 'application/pdf';
+                        break;
+                    case 0x504b0304:
+                        file.verified_type = 'application/zip';
+                        break;
+                }
+                console.log(file.name, file.verified_type);
+            };
+        }
+    </script>
+</head>
+
+<body>
+
+<input type="file" onchange="typefile(this.files[0]);">
+
+</body>
+</html>

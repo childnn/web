@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        // 'load' 事件只有在文档加载完成之后才会触发.
+        // 通常需要等待 load 事件发生后才会开始执行 JS 代码.
+        window.onload = function () { // 当文档加载完成时执行这里的代码.
+            // 找到文档中所有 <img> 标签
+            let images = document.getElementsByTagName('img');
+
+            // 遍历 images, 给每个节点的 'click' 事件添加事件处理程序.
+            // 在点击图片的时候将图片隐藏,
+            for (let i = 0; i < images.length; i++) {
+                const img = images[i];
+                // 这里实际上是获取 addEventListener 的值(函数的值)
+                if (img.addEventListener) { // 注册事件处理程序的另一种方法.
+                    img.addEventListener('click', hide, false);
+                } else {
+                    img.attachEvent('onClick', hide); // 兼容 IE8 及以前的版本.
+                }
+            }
+
+            // 这便是上面注册的事件处理函数
+            function hide(event) {
+                event.target.style.visibility = 'hidden';
+            }
+        };
+    </script>
+</head>
+<body>
+
+<img src="" alt="这是图片">
+
+</body>
+</html>

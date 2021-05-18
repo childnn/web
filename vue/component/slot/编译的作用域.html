@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>属性的编译作用域</title>
+</head>
+<body>
+
+
+<div id="app">
+  <!-- 这里的 isShow 属性是 当前 Vue实例(父组件)的属性, 而不是子组件的属性 -->
+  <cpn v-show="isShow"></cpn>
+</div>
+
+<template id="cpn">
+  <div>
+    <h2>显示</h2>
+    <!-- 这里的 isShow 属于子组件, 作用域为子组件 -->
+    <h1 v-show="isShow">子组件的 isShow</h1>
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      isShow: true
+
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        data() {
+          return {
+            isShow: false,
+          }
+        }
+      }
+    }
+  });
+</script>
+
+
+</body>
+</html>

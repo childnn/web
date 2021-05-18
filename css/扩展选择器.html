@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>扩展选择器</title>
+    <style>
+        div,p,font{ /*组合选择器: 定义一组标签的属性值*/
+            color: red;
+        }
+        body>div{ /*尝试去掉大于号 看效果*/
+            color: yellow;
+        }
+
+    </style>
+</head>
+<body>
+    <div>孙悟空</div>
+    <p>李秋水</p>
+    <font>李沧海</font>
+
+    <div>
+        <div>唐僧</div>
+    </div>
+    <div>
+        <div>张三丰</div>
+    </div>
+</body>
+</html>

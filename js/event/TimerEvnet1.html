@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Timer Event</title>
+    <script>
+        let interval = setInterval(timerHandler, 5000);
+        function timerHandler(eventObj) {
+            document.getElementById("msg").innerHTML += new Date().toLocaleString() + "<br/>";
+        }
+
+        // 页面加载完成, 才能访问到 id.
+        window.onload = function () {
+            document.getElementById("btn").onclick = function () {
+                clearInterval(interval);
+                document.getElementById("msg").innerHTML = '';
+            };
+        };
+    </script>
+</head>
+<body>
+<input type="button" id="btn" value="ClickToStop"/>
+<p id="msg"></p>
+
+</body>
+</html>

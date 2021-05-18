@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>V-model 可以认为是 v-bind:value + v-on:input 组合 </title>
+</head>
+<body>
+
+<!--
+v-model 语法糖, 它背后包含两个操作
+    1. v-bind 绑定一个 value 属性
+    2. v-on 指令给当前元素绑定 input 事件
+    v-model = v-bind:value + v-on:input
+
+-->
+<div id="app">
+  <input type="text" v-model="message"> {{message}}
+  <input type="text" v-bind:value="message" @input="valueChange">
+  <!--<input type="text" :value="message" v-on:input="valueChange">-->
+  <input type="text" :value="message" @input="message = $event.target.value">
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    },
+    methods: {
+      valueChange(event) {
+        this.message = event.target.value;
+      }
+    }
+  });
+</script>
+</body>
+</html>

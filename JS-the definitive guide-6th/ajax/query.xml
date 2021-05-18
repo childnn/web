@@ -1,0 +1,5 @@
+<query>
+    <find zipcode="02134" radius="1km">
+        pizza
+    </find>
+</query>

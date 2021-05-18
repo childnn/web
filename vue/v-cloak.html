@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>cloak: 斗篷</title>
+
+  <style>
+    [v-cloak] {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <!-- 看一下二者的区别 -->
+  <h2 v-cloak>{{message}}</h2>
+  {{message}}
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  /* 在 vue 解析之前, div 中有一个属性 v-cloak: css 设置为隐藏
+  * 在 vue 解析之后, div 中没有属性 v-cloak.
+  *
+  *  */
+  setTimeout(function () {
+    const app = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊'
+      }
+    });
+  }, 2000);
+</script>
+</body>
+</html>

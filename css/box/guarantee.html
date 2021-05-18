@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- media 属性允许你指定应用这个样式表的设备类型, 通过创建一个 "媒体查询" 来指定设备类型, 媒体查询要与设备匹配
+        screen and (max-device-width: 480px) 这个查询指定了有屏幕的设备(而不是 其他设备,比如说打印机或 3D 眼镜, 或者盲文阅读机)
+                而且屏幕宽度不超过 480px.
+        print: 媒体类型为 'print' 时才会使用, 这说明我们要通过打印机查看页面.
+        查询中有很多属性可供使用: min-device-width, max-device-width. 以及显示方向 orientation,
+        可以是 横向(landscape) 或 纵向(portrait), 此外还有很多其他属性.
+        可以根据需要为 HTML 增加多个 <link> 标记, 涵盖你要支持的所有设备.
+        关于在 .css 文件中设置 media 规则: css/style/a.css
+     -->
+    <link href="../style/lounge.css" rel="stylesheet" media="screen and (max-device-width: 480px)"/>
+    <link href="../style/lounge.css" rel="stylesheet" media="print"/>
+
+    <style>
+        .guarantee {
+            /* border-top/right/bottom/left-color/style/width */
+            /* 可以使用 颜色名(red), rgb 值, 十六进制值 */
+            /*border-color: black;*/
+            /* border-width: 可以指定 像素 或者 关键字 thin/medium/thick */
+            /*border-width: 1px;*/
+            /* border-style: solid, double, groove, dotted, dashed, inset, outset, ridge */
+            /*border-style: solid;*/
+            border: white dashed thin;
+            height: 1080px;
+            /* 可以在四个角上都创建圆角, 或者只对一个角或这 4 个角的任意组合创建圆角. */
+            /* border-top-left-radius, border-top-right-radius, border-bottom-right-radius, border-bottom-left-radius
+               可以使用 em 修饰, 边框半径的度量相对于元素的字体大小, 与使用 em 指定 font-size 时是一样的.
+            */
+            border-radius: 15px 10px 5px 0;
+            /* 可以设置一个值, 设置多个: top-right-bottom-left */
+            padding: 25px 20px 15px 10px;
+            /*padding-left: 10px;*/
+            margin: 30px;
+            /*line-height: 1.9em;*/
+            /* font: font-style font-variant font-weight font-size/line-height font-family */
+            font: italic 20px/1.6em Verdana, Helvetica, Arial, sans-serif;
+            /*font-style: italic;*/
+            /*font-size: 20px;*/
+            /*font-family: Georgia, 'Times New Roman', Times, serif;*/
+
+            color: #444444;
+
+            /* url 可以指定完整的 URL: http://... */
+            /* url 参数可以不加引号. */
+           /* background-image: url("../../img/IU.jpg");
+            !* no-repeat(不重复), repeat-x(水平重复), repeat-y(垂直重复), inherit(按父元素设置) *!
+            background-repeat: no-repeat; !* 背景图像不重复 *!
+            background-color: #a7cece;*/
+            /* top, left, right, bottom, center */
+            /*background-position: top left; !* 左上角 *!*/
+            background: #a7cece url("../../img/IU.jpg") repeat-x top left;  /* shorthand */
+
+
+
+
+            /* 使用块元素的 text-align 来对齐其中包含的文本. 这里我们打算让文本居中.
+                实际上它适用于对任何类型的内联元素对齐.
+                如果直接使用在 内联元素上(如 <img>), 则不起作用.
+                */
+            text-align: center;
+        }
+    </style>
+    <title>Title</title>
+</head>
+<body>
+
+<p class="guarantee">
+    Our guarantee: at the lounge, we're committed to providing you, our guest, with an exceptional
+    experience every time you visit. Whether you're just stopping by to check in on email over an
+    elixir, or are here for an out-of-the-ordinary dinner, you'll find our knowledgeable service
+    staff pay attention to every detail. If you're not fully satisfied, have a Blueberry Bliss Elixir on us.
+</p>
+
+</body>
+</html>

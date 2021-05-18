@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            var socket = new WebSocket("ws://localhost:8080/websocket");
+
+            socket.onopen = function (e) {
+                console.log('Socket 已连接');
+                // 通过套接字发送数据给服务器
+                socket.send('Hello, server!');
+            };
+
+            socket.onclose = function (e) {
+                console.log('Socket 已关闭');
+            };
+
+            socket.onerror = function (e) {
+                console.log('出错了');
+            };
+
+            socket.onmessage = function (e) {
+                console.log(e.data); // 服务器发送一条消息
+            };
+
+
+        };
+    </script>
+</head>
+<body>
+
+</body>
+</html>

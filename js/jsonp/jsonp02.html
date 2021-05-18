@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        window.onload = function () {
+            /**
+             * 为何要替换整个 <script> 元素, 难道不能直接替换 src 属性中的数据吗?
+             *  -- 如果只是用心 URL 替换 src 属性, 浏览器不会把它看作是一个新的 script 元素,
+             *  所以它不会发请求获取 JSONP. 要强制浏览器做出请求, 必须创建全新的 script 元素.
+             *  这种技术称为 "脚本插入".
+             */
+            function handleRefresh() {
+                const url = 'http://gumball.wickedlysmart.com?callback=updateSales' +
+                        '&lastreporttime=' + lastReportTime +
+                        // 增加一个无用参数, 每次请求都会改变, 避免缓存.
+                    '&random=' + new Date().getTime();
+                // 在 DOM 中插入 script 标签.
+                let newScriptElement = document.createElement('script');
+                newScriptElement.setAttribute('src', url);
+                newScriptElement.setAttribute('id', 'jsonp');
+
+                let oldScriptElement = document.getElementById('jsonp');
+                let head = document.getElementsByTagName('head')[0];
+                if (oldScriptElement == null) {
+                    head.appendChild(newScriptElement);
+                } else {
+                    head.replaceChild(newScriptElement, oldScriptElement);
+                }
+            }
+
+            // 每隔 3 秒, 刷新 <script> 标签, 获取最新数据.
+            // setInterval 函数会返回一个 id, 标识这个定时器. 可以把这个 id 保存在一个变量中,
+            // 如果想要停止此定时器, 可以传递它到 clearInterval 函数.
+            // 当然, 关闭浏览器也可以停止定时器.
+            setInterval(handleRefresh, 3000);
+        };
+
+        // 增加查询参数, 避免重复数据.
+        var lastReportTime = 0;
+        function updateSales(sales) {
+            let salesDiv = document.getElementById('sales');
+            let length = sales.length;
+            for (let i = 0; i < length; i++) {
+                var sale = sales[i];
+                let div = document.createElement('div');
+                div.setAttribute('class', "saleItem");
+                div.innerHTML = sale.name + ' sold ' + sale['sales'] + ' gumballs';
+                salesDiv.appendChild(div);
+            }
+            if (length > 0) {
+                lastReportTime = sales[length - 1].time;
+            }
+        }
+    </script>
+</head>
+<body>
+
+<h1>Mighty Gumball Sales</h1>
+<div id="sales">
+
+</div>
+
+</body>
+</html>

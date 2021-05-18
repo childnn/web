@@ -1,0 +1,104 @@
+body {
+    background-color: #b5a789;
+    font-family: Gabriola, 'Times New Roman', Times, serif;
+    font-size: small;
+    margin: 0;
+}
+/*
+  frozen layouts
+  冻结布局, 避免由于窗口扩展带来的问题.
+ */
+#allcontent {
+    width: 800px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #675c47;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#header {
+    background-color: #675c47;
+    margin: 10px 10px 0 10px;  /* 下外边距为 0 */
+    /*margin: 10px;*/
+    height: 108px;
+    clear: both;
+}
+
+#main {
+    background: #efe5d0 url("../../img/IU.jpg") top left;
+    font-size: 105%;
+    padding: 15px;
+    /*margin: 0 10px 10px 10px;*/
+    display: table-cell; /* 列 */
+    vertical-align: top;
+}
+
+#sidebar {
+    display: table-cell; /* 列 */
+    background: #efe5d0 url("../../img/banner_2.jpg") bottom right;
+    font-size: 105%;
+    padding: 15px;
+    /*margin: 0 10px 10px 10px;*/
+    /*
+    增加属性 vertical-align, 确保表格两个单元格中的所有内容相对于单元格上边对齐(而不是与中间或下边对其).
+    */
+    vertical-align: top;
+    width: 280px;
+    /*float: right;*/
+    /* 定义 绝对定位: top 和 right 相对与页面的像素距离.
+     使用绝对定位, 可以把一个元素放在另一个元素上面,实现分层的效果
+     要想设置分层的上下关系, 使用 z-index 属性, 其值越大越靠外层(上层).
+     position 默认值 static, 静态定位表示元素会放在正常的文档流中,不是有自己指定位置.
+        absolute 值 告诉浏览器应该把元素放在什么位置.
+        fixed: 固定定位. 将元素放在相对于浏览器窗口的一个位置上,而不是相对于页面,
+                所以固定元素永远不会移动.
+        relative: 定位会让元素正常流入页面, 不过在页面上显示之前要进行偏移.
+                 相对定位常用于更高级的定位和特殊效果.
+     可以指定任何元素的绝对定位,只是一个元素绝对定位时,会把它从页面的正常流中删除.
+     流元素 不会知道 绝对定位元素的存在.
+     */
+    position: absolute;
+    top: 100px;
+    right: 200px;
+}
+
+#footer {
+    background-color: #675c47;
+    color: #efe5d0;
+    text-align: center;
+    padding: 15px;
+    margin: 0 10px 10px 10px;  /* 上外边距为 0 */
+    /*margin: 10px;*/
+    font-size: 90%;
+    clear: right; /* 解决重叠问题: 右侧不许有浮动元素 */
+}
+
+h1 {
+    font-size: 120%;
+    color: #954b4b;
+}
+
+.slogan {
+    color: #954b4b;
+}
+
+.beanheading {
+    text-align: center;
+    line-height: 1.8em;
+}
+
+div#tableContainer {
+    display: table;
+    /*
+    border-spacing 属性为表格中的单元格增加 10px 的边框间距,可以把
+    border-spacing 看作是常规元素的外边距.
+    因为我们要使用单元格上的 border-spacing, 所以不再需要 <div> 上的外边距.
+    border-spacing 和外边距创建的空间不会折叠.
+    */
+    border-spacing: 10px;
+}
+
+div#tableRow {
+    display: table-row;
+}

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>H5 新元素</title>
+    <style>
+        body {
+            background-color: #b5a789;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: small;
+            margin: 0;
+        }
+        header {
+            background-color: #675c47;
+            margin: 10px 10px 0 10px;
+            height: 108px;
+        }
+        header img#headerSlogan {
+            float: right;
+        }
+        aside {
+            display: table-cell;
+            background: #efe5d0 url("../../img/banner_3.jpg") bottom right;
+            font-size: 105%;
+            padding: 15px;
+            vertical-align: top;
+        }
+
+        footer {
+            background-color: #675c47;
+            color: #efe5d0;
+            text-align: center;
+            padding: 15px;
+            margin: 0 10px 10px 10px;
+            font-size: 90%;
+        }
+
+        nav {
+            background-color: #efe5d0;
+            margin: 10px 10px 0 10px;
+        }
+
+        nav ul {
+            margin: 0;
+            background-color: #efe5d0;
+            /*margin: 10px 10px 0 10px;*/
+            list-style-type: none;
+            padding: 5px 0 5px 0;
+        }
+
+        nav ul li {
+            /* 列表显示从 block 改为 inline, 所以现在列表的前后不再有回车.
+               它们会像常规的内联元素一样在页面上流入一行.
+            */
+            display: inline;
+            padding: 5px 10px 5px 10px;
+        }
+
+        nav ul li a:link, nav ul li a:visited {
+            color: #954b4b;
+            border-bottom: none;
+        }
+        nav ul li.selected {
+            background-color: #c8b99c;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="../../img/banner_1.jpg" alt="header" id="headerSlogan"/>
+    <nav>
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li class="selected"><a href="#">BLOG</a></li>
+            <li><a href="#">INVENTIONS</a></li>
+            <li><a href="#">LOCATIONS</a></li>
+        </ul>
+    </nav>
+
+</header>
+<aside>
+
+</aside>
+<footer>
+ <time datetime="2020-08-13">08/13/2020</time>
+</footer>
+</body>
+</html>

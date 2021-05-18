@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Planets</title>
+    <style>
+        /* 定义 redtext 类, 这样代码中将元素的特性 class 设置为 redtext 时, 其文本将变成红色. */
+        .redtext {
+            color: red;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            let planet = document.getElementById('greenplanet');
+            planet.innerHTML = 'Red Alert: hit by phaser fire!';
+            // 给这个元素添加 class 属性, 将元素的文本设置为 red.
+            planet.setAttribute('class', 'redtext');
+        }
+    </script>
+</head>
+<body>
+
+<h1>Green Planet</h1>
+<p id="greenplanet">All is well</p>
+<h1>Red Planet</h1>
+<p id="redplanet">Nothing to report</p>
+<h1>Blue Planet</h1>
+<p id="blueplanet">All Systems A-OK</p>
+
+</body>
+</html>

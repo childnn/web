@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--
+     浏览器安全策略: 如果从某个域提供的页面本身, 安全策略要求不能从另一个域获取数据.
+     想象一下, 假设你在运行 DaddyWarBucksBank.com 网站, 有人闯入你的系统, 插入一些 JS,
+     拿走了用户的个人信息, 并于服务器 HackersNeedMoreMoney.com 通信对这个信息为所欲为.
+     听起来不太好吧? 嗯, 为了防止诸如此类的事情发生, 浏览器不允许你对原先提供页面的域以外的其他域
+     发出 XMLHttpRequests 请求.
+     在应用所在的同一个域托管数据时, XMLHtpRequests 是为应用获取数据的一种很好的方法, 不过, 如果需要从
+     第三方获取数据呢? 例如, 假设你要 Google 或 Twitter 的数据呢? 在这些情况下, 我们确实必须换个角度看问题,
+     需要另辟蹊径.
+     确实还有一种基于 JSON 的方法, 称为 JSONP (Json with Padding).
+     从另一个域提供的 JS 文件不仅可以在代码中调用它想要的任何函数, 还可以为我们传递它希望的任何数据.
+     JSONP 是一种使用 <script> 标签获取 JSON 对象的方法. 这也是一个获取数据的方法(同样, 采用 JSON 对象的形式),
+     它可以避免 XMLHttpRequests 的同源安全问题.
+    -->
+</head>
+<body>
+
+<script>
+    /* 在当前服务器定义方法, 可以供服务器上的代码调用 */
+    function animalSays(animal) {
+        alert(animal.type + ' says ' + animal.sound);
+    }
+</script>
+
+<!--
+ 非同源服务器上的 JS 源码
+ var animal = { "type": "dog", "sound": "woof" };
+ animalSays(animal);
+ 远程服务器上的代码可以调用当前服务器的代码(定义的方法需要放在引入的 <script> 标签上面)
+ 浏览器在遇到页面中的 <script> 标签时, 再向 src 指向的 URL 发出一个 HTTP 请求.
+ 服务器像对待其他 HTTP 请求一样处理这个请求, 并在响应中发回 JSON.
+ JSON 响应的形式是字符串, 再由浏览器解析和解释. 任何数据类型都会转换为真正的 JS 对象和值. 另外所有代码都将执行.
+-->
+<script src="http://wickedlysmart.com/hfhtml5/chapter6/dog3.js"></script>
+</body>
+</html>

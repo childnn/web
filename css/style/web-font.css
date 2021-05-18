@@ -1,0 +1,18 @@
+/*
+ web-font 的引入:
+  .ttf   TrueType 字体
+  .otf   OpenType 字体
+  .eot   Embedded OpenType 字体
+  .svg   Scalable Vector Graphics 一种通用图像格式. svg 字体使用这种格式表示字体.
+
+*/
+@font-face {
+    font-family: "Emblema One";
+    src: url("http://wickedlysmart.com/hrhtmlcss/chapter8/journal/EmblemaOne-Refular.woff"),
+         url("http://wickedlysmart.com/hrhtmlcss/chapter8/journal/EmblemaOne-Refular.ttf");
+}
+
+/* 使用 web 字体 */
+h1 {
+    font-family: "Emblema One", sans-serif;
+}

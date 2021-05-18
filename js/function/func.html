@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        /**
+         * 将函数视为 值, 就像 数字,字符串,布尔值和对象一样. 相比上述其他值, 函数值的不同之处在于我们可以调用它.
+         * @param num
+         */
+        // 函数声明: 预加载
+        function quack(num) {
+            for (var i = 0; i < num; i++) {
+                console.log("Quack!");
+            }
+        }
+        // 函数表达式
+        var fly = function (num) {
+            for (var i = 0; i < num; i++) {
+                console.log("Flying!");
+            }
+        }
+
+        // 引用赋值. -- 将函数赋值给变量.
+        var superFly = fly;
+        superFly(2);
+
+        var superQuack = quack;
+        superQuack(3);
+
+    </script>
+</head>
+<body>
+
+
+
+</body>
+</html>

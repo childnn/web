@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./PlayListStore.js"></script>
+    <script>
+        // 重启浏浏览器, 数据仍然存在
+        // localStorage.clear();
+        window.onload = function () {
+            document.getElementById('addSong').onclick = function () {
+                let songName = document.getElementById('songName').value;
+
+                const htmlLiElement = document.createElement('li');
+                htmlLiElement.innerHTML = songName;
+                let ul = document.getElementById('playList');
+                ul.appendChild(htmlLiElement);
+
+                save(songName);
+            };
+            // 加载页面时, localStorage 加载存储的歌曲.
+            loadPlayList();
+
+            document.getElementById('clearCaches').onclick = function () {
+                localStorage.clear();
+            };
+        };
+
+    </script>
+</head>
+<body>
+
+<label for="songName">SongName</label>
+<input type="text" id="songName"/>
+<input type="button" value="AddSong" id="addSong">
+<input type="button" value="ClearCaches" id="clearCaches">
+
+<ul id="playList">
+
+</ul>
+
+</body>
+</html>

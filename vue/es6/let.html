@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+<!--
+事实上 var 是 JS 设计上的缺陷, 但这种错误多半不能修复和移除, 因为需要向后兼容,
+可以将 let 理解成更完美的 var
+块级作用域
+  ES5 之前, if/for 无块级作用域, 只有 函数 有作用域
+  ES6 有 if/for 块级作用域
+  JS 中使用 var 来声明一个变量时, 变量的作用域主要是和函数的定义有关
+  针对其他块定义来说是没有作用域的, 如 if/for
+-->
+
+<button>bt1</button>
+<button>bt2</button>
+<button>bt3</button>
+<button>bt4</button>
+
+<script>
+  // 变量作用域: 变量在什么范围可用, 超过范围不可用
+  // var 没有块级作用
+  {
+    var name = 'who';
+    console.log(name);
+  }
+  console.log(name);
+
+  // if
+  var func;
+  if (true) {
+    var name = 'why';
+    func = function () {
+      console.log(name);
+    }
+    func();
+  }
+  name = "abc";
+  func();
+
+  // for
+  var btns = document.getElementsByTagName("button");
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function () {
+      console.log('var第' + i + '个按钮被点击.');
+    })
+  }
+
+  // 闭包: 函数是一个作用域,
+  for (var i = 0; i < btns.length; i++) {
+    // 闭包: 内外的 i 互不影响
+    // 每一次循环都会创建一个函数
+    (function (num) { // num 改为 i 也可以, 这里只是为了说明 闭包的 参数与 外面的无关
+      btns[num].addEventListener('click', function () {
+        console.log('闭包第' + (num + 1) + '个按钮被点击.');
+      })
+    })(i); // 创建函数并立即调用, 这里的 i 才是 for 中的 i
+  }
+
+  // ES6: let 块级作用域
+  for (let i = 0; i < btns.length; i++) {
+    btns[i].addEventListener('click', function () {
+      console.log('let第' + (i + 1) + '个按钮被点击.');
+    })
+  }
+</script>
+
+</body>
+</html>

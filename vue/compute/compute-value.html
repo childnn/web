@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+  <h2>{{firstName}} {{lastName}}</h2>
+  <h2>{{firstName + ' ' + lastName}}</h2>
+  <h2>{{getFullName()}}</h2>
+  <h2>{{fullName}}</h2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      firstName: 'Jack',
+      lastName: 'Rose'
+    },
+    // 计算属性很像 methods, 但是
+    // 计算属性无论调用多少次只会执行一次,
+    // 而 methods 调用一次执行一次
+    // 计算属性: 缓存
+    /* 计算属性当成属性使用, 调用不需要加 括号 */
+    computed: {
+      fullName: function () {
+        return this.firstName + ' ' + this.lastName;
+      }
+    },
+    methods: {
+      getFullName: function () {
+        return this.firstName + ' ' + this.lastName;
+      }
+    }
+  });
+</script>
+</body>
+</html>

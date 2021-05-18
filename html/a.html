@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <meta> 标签应该加在 <head> 元素中所有其他元素的上面. -->
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div id="top">Top</div>
+
+<!-- title 一般设置为访问链接所在页面的 <title> 元素值
+   当 鼠标悬浮到 链接上时, 会显示 title 值.
+  默认跳转当前页面
+ -->
+<a href="https://www.baidu.com" title="Baidu">GoToBaidu</a>
+<br/>
+<br/>
+<br/>
+<br/>
+FTP: File Transfer Protocol <br/><br/>
+SFTP: Secure File Transfer Protocol<br/>
+URL: Uniform Resource Locators<br/>
+eg: http://www.starbuzzcoffee.com/index.html<br/>
+协议(http://, file:///)+网站名+从根文件夹到资源的绝对路径<br/>
+<br/>
+mosaic: 初代浏览器(马赛克). 图片, 列表(镶嵌), 表单<br/>
+HTML: Hypertext Markup Language. structural 结构 content 内容<br/>
+CSS: Cascading Style Sheets. presentational 显示<br/>
+JS: JavaScript. event 行为<br/>
+动态类型, 一等函数, 闭包<br/>
+JS: pass-by-value. 把每个实参的值复制给形参.<br/>
+没有返回值的函数返回 undefined.<br/>
+变量作用域(scope): 全局(global),局部(local).<br/>
+使用未声明的变量时(没有使用 关键字 var 等声明),它将自动被视为全局变量,即便你在函数中首次使用它.<br/>
+---<br/>
+JS 灰色地带:<br/>
+1. null 与 undefined: 在应该提供一个对象,但无法创建或找到时, 将提供 null;<br/>
+在变量未初始化,对象没有指定属性或数组没有指定元素时,将返回 undefined.<br/>
+2. NaN: 类型(typeof)是 number, NaN != NaN.<br/>
+对于 NaN 与它自己不相等的解释: NaN 指的是无法表示的数字,但并非无法表示的数字都相同.<br/>
+<br/>
+关于 ==: 相等<br/>
+1. 如果两个值的类型相同,则直接比较<br/>
+2. 如果类型不同,则尝试将它们转换为相同类型: 如果其中一个类型为 number, 则将另一个类型转换为 number(如果可能的话)<br/>
+2.1. 字符串和数字: 将字符串转换为数字(转换失败则为 NaN)<br/>
+2.2. 布尔值和其他类型: 将布尔值转换为数字(true 为 1, false 为 0)<br/>
+2.3. null 和 undefined: null == undefined<br/>
+关于 ===: 严格相等(等同运算符)<br/>
+if and only if 两个值类型和值都相同时,它们才是严格相等.<br/>
+JS 中的假值(false)五个: undefined, null, 0, 空串, NaN<br/>
+<br/>
+<br/>
+ECMAScript: European Computer Manufactures Association. 欧洲计算机制造商协会<br/>
+<br/>
+DOM: document object model<br/>
+BOM: browser object model<br/>
+JSON: JS Object Notation<br/>
+----------------------------------------------------<br/>
+html: HyperText Markup Language<br/>
+元素分类:<br/>
+block: 块元素. 特立独行<br/>
+inline: 内联元素. 随波逐流<br/>
+void 元素: 自闭和标签(无值元素)<br/>
+<!--<br/>, <img/>--><br/>
+head<br/>
+title<br/>
+body<br/>
+strong: 加粗<br/>
+b: bold 加粗<br/>
+em: emphasis 斜体(强调)<br/>
+i: italic 倾斜<br/>
+p: paragraph 段落<br/>
+&amp;: ampersand & 与符号<br/>
+&trade;: ™<br/>
+hr: horizontal rule<br/>
+blockquote:<br/>
+&nbsp;: no-break space<br/>
+br: line break 换行<br/>
+abbr: abbreviation 缩写<br/>
+sub: subscript 下标<br/>
+sup: superscript 上标<br/>
+bid: bidirectional 双向<br/>
+code: 代码<br/>
+var: 数学变量<br/>
+ol: ordered list<br/>
+li: list item<br/>
+ul: unordered list<br/>
+tr: table row<br/>
+td: table data<br/>
+rowspan: 跨行<br/>
+colspan: 跨列<br/>
+cellpadding: 内边距<br/>
+cellspacing: 外边距<br/>
+href: hypertext reference<br/>
+a-href: anchor hyperlink reference<br/>
+div: division<br/>
+<br/>
+----------------------------------------------------------<br/>
+css: cascading style sheets<br/>
+margin: 外边距<br/>
+padding: 内边距
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+<!-- 跳转当前页: 根据元素的 id -->
+<div><a href="#top">Go Back To Top</a></div>
+
+</body>
+</html>

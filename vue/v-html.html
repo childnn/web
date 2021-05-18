@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  {{url1}}
+  <br>
+  <h2 v-html="url1"></h2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      url1: '<a href="https://www.baidu.com">点击</a>'
+    }
+  });
+</script>
+
+</body>
+</html>

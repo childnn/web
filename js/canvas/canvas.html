@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>画布</title>
+
+    <style>
+        canvas {
+            border: 1px solid black;
+        }
+    </style>
+
+    <script>
+        window.onload = function () {
+            let canvas = document.getElementById('tshirtCanvas');
+            // 检查 getContext 是否有值(不是调用方法)
+            if (canvas.getContext) {
+                let context = canvas.getContext('2d');
+                /*
+                * 前两个参数: 矩形在画布上的 x,y 位置.
+                * 后两个参数: 举行的 weight, height.
+                * */
+                context.fillRect(10, 10, 100, 100);
+            } else {
+                alert('sorry, no canvas API support.')
+            }
+        };
+    </script>
+
+</head>
+<body>
+
+<!--
+  默认情况下, 画布元素是 300px-weight, 150px-height.
+  黑色是画布的默认填充色.
+-->
+<canvas id="tshirtCanvas" width="600" height="200">
+    Hey you, yes You, upgrade your browser! -- 如果你看到这句话, 说明浏览器该升级了.
+</canvas>
+
+</body>
+</html>
