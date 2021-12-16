@@ -14,3 +14,6 @@ require('./css/normal.css');
 
 // 依赖 less
 require('./css/special.less');
+
+// 依赖 图片 模块
+// require('./img/img.jpg');

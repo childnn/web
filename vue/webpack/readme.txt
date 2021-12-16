@@ -13,6 +13,10 @@
     局部安装将 -g 替换为 --save-dev
     卸载使用 uninstall
 
+配置 npm 国内镜像
+npm install -g cnpm --registry=https://registry.npm.taobao.org
+# 此后就可以使用 cnpm install ... 命令了
+
 基本目录结构:
  /src: source 源码
  /dist: distribution 发布
