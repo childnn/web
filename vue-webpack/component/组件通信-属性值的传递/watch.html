@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>父组件值传子组件,子组件值改变同步父组件</title>
+</head>
+<body>
+
+<!-- 父组件 -->
+<div id="app">
+  <!--
+    子组件: 子组件的属性, 事件
+    子组件的属性被父组件的属性同步 -- 父传子
+    子组件的事件激活父组件的方法   -- 子传父
+  -->
+  <cpn :child-prop1="num1"
+       :child-prop2="num2"
+       @on-child-prop1-change="cik1"
+       @on-child-prop2-change="cik2">
+
+  </cpn>
+</div>
+
+<!-- template: 子组件 -->
+<template id="cpn">
+  <div>
+    <div>子组件的 data 属性值1: {{childData1}}</div>
+    <div>子组件的 props 属性1: {{childProp1}}</div>
+
+    watch 子组件的 data 属性1, 通过 emit 改变父组件属性值
+    <input type="text" v-model="childData1" />
+    <div>子组件的 data 属性值2: {{childData2}}</div>
+    <div>子组件的 props 属性2: {{childProp2}}</div>
+    <input type="text" v-model="childData2" />
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+  // 子组件
+  const cpn = {
+    // template-id
+    template: '#cpn',
+    // props 引入父组件的属性
+    // 不要直接在子组件模板中绑定 props 属性
+    // 应该使用 data 间接绑定
+    props: {
+      // 子组件的属性: 用于关联 父组件的属性
+      childProp1: {
+        type: Number,
+        required: true,
+        default: 0
+      },
+      childProp2: {
+        type: Number,
+        required: true,
+        default: 0
+      }
+    },
+    // use a data or computed property based on the prop's value.
+    data () {
+      return {
+        // 把 props 引入的父属性值赋值给 子组件的 属性
+        childData1: this.childProp1,
+        childData2: this.childProp2,
+      }
+    },
+    // 替代 @input 事件
+    // !!! watch 的 "方法名" 必须为被监听的属性名
+    watch: {
+      // 监听属性改变
+      childData1 (newValue, oldValue) { // 参数可选
+        // this.childSelf1 = newValue;
+        console.log("old value: %s, new value: %s", oldValue, newValue)
+        this.childData2 = newValue * 100;
+        this.$emit('on-child-prop1-change', newValue);
+      },
+      // childData2 (newValue, oldValue) {
+      //   // this.childSelf2 = newValue;
+      //   this.childData1 = newValue / 100;
+      //   this.$emit('on-child-prop2-change', newValue);
+      // }
+    }
+  }
+
+  // 父组件: Vue 实例
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      num1: 1,
+      num2: 2,
+    },
+    // 引入子组件
+    components: {
+      cpn, // 增强写法
+    },
+    methods: {
+      // 被子组件的事件触发-调用, 接收子组件事件 emit 过来的值
+      cik1 (val) {
+        // 这里入参默认为 String 类型, 不转换会报警告
+        this.num1 = parseFloat(val);
+      },
+      cik2 (val) {
+        this.num2 = parseFloat(val);
+      },
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>父子组件通信</title>
+</head>
+<body>
+
+<!--
+ copy from internet
+-->
+
+<div id="app">
+
+  <!-- 父组件 -->
+  <index></index>
+
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<!-- 子组件 -->
+<template id="train-city">
+  <!--<div class="train-city">-->
+  <div>
+    <!-- sendData 在子组件中定义 -->
+    <h3>父组件传给子组件 toCity: {{ sendData }}</h3>
+    <br>
+
+    <!--
+     调用方法时: 如果给定参数, 则入参数据就是实参本身
+     如果没有给定参数, 则入参就是 event 事件, 本例中就是
+    -->
+    <button @click="select('武汉')">点击发送到父组件</button>
+    <br>
+    实时同步
+    <input type="text" @input="select">
+    <!-- v-model 只能绑定属性 -->
+    <!--<input type="text" v-model.lazy="select">-->
+    <br>
+    enter 同步
+    <input type="text" @keyup.enter="select">
+  </div>
+</template>
+
+<!-- 父组件 -->
+<template id="index">
+  <div>
+    <div>父组件的 toCity: {{ toCity }}</div>
+    <!-- 子组件, 子组件的事件, 子组件的属性, 事件/属性值属于父组件-->
+    <train-city @show-city-name="updateCity" :send-data="toCity"></train-city>
+  </div>
+</template>
+
+
+<script>
+
+  // 子组件
+  const trainCity = {
+    template: '#train-city',
+
+    // 以数组形式定义 props 属性时, 属性名必须加 引号, 否则无法解析
+    props: ['sendData'], // 用来接收父组件给子组件的数据
+
+    // 子组件方法
+    methods: {
+      select (val) {
+        console.log("入参：", val)
+        // 使用原生的 vue, 小驼峰识别不了, 只能改为短横分隔的形式
+        this.$emit('show-city-name', {
+          cityName: val
+        })
+      }
+    }
+  }
+
+  // 父组件
+  const index = {
+    template: '#index',
+    // 子组件
+    components: {
+      trainCity
+    },
+    // 组件的属性必须为 function
+    // 返回一个对象
+    data () {
+      return {
+        toCity: '杭州',
+      }
+    },
+    methods: {
+      updateCity (data) {
+        if (data.cityName && data.cityName.target) {
+          this.toCity = data.cityName.target.value;
+        } else {
+          this.toCity = data.cityName;
+          console.log('toCity: ', this.toCity);
+        }
+      }
+    },
+  }
+
+  // 顶层组件: vue 实例
+  new Vue({
+    el: '#app',
+    data: {},
+    methods: {},
+    components: {
+      // 引入组件
+      index
+    }
+  });
+
+
+</script>
+
+
+</body>
+</html>

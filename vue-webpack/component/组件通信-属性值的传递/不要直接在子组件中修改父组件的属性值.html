@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>不要直接在子组件中修改父组件的属性值.html</title>
+</head>
+<body>
+
+<h1>各个子组件的 data 属性不相关</h1>
+
+<div id="app">
+  <!--
+    将父组件的数据传递到子组件
+    左值表示被绑定的子组件属性名, 右值表示父组件的属性名
+    num1: 父组件属性, 本例父组件就是 外层 vue 实例
+  -->
+  父组件的属性值: {{num1}}
+
+  <br>
+  修改父组件的属性值
+  <input type="text" v-model.number="num1">
+
+
+  <!-- 子组件:
+   parent-prop 是子组件的属性: 可以认为是自定义的 html 标签属性
+   num1 是父组件(此例就是最外层的vue实例)的 data 属性
+
+  -->
+  <cpn :parent-prop="num1"></cpn>
+
+  <hr>
+
+  <!-- 左值-事件名: 子组件定义($emit 事件名), 右值: 父组件的 方法 -->
+  <!-- 父子同步-this.$emit <cpn :parent-prop="num1" @child-prop="cik"></cpn> -->
+  <h2>子传父-this.$emit</h2>
+  这里子组件没有绑定 props 属性, 所以这一部分的初始值都是默认值
+  只是为了测试 子传父
+  <br>
+  父组件方法调用无需传递参数: 参数通过子组件的事件传递
+  <cpn @on-child-prop-change="cik"></cpn>
+
+  <hr>
+
+  <h2>父子同步</h2>
+  <cpn :parent-prop="num1" @on-child-prop-change="cik"></cpn>
+
+
+</div>
+
+<!-- template: 子组件 -->
+<template id="cpn">
+  <div>
+    <!-- 这里写的是 子组件定义的属性, 该属性绑定了 父组件的属性 -->
+    <!--<h2>父传子: {{parentProp}}</h2>-->
+    <!--
+    这种方式可以实现双向绑定, 但是会有警告
+    vue.js:634 [Vue warn]: Avoid mutating a prop directly since the value will
+    be overwritten whenever the parent component re-renders.
+    Instead, use a data or computed property based on the prop's value.
+    Prop being mutated: "n1"
+    不建议在子组件中修改父组件的属性
+    -->
+    <!--<input type="text" v-model="parentProp">-->
+
+    <h3>子组件-cpm</h3>
+
+    <div>子组件的 props 属性-会被父组件的关联值同步修改: {{parentProp}}</div>
+    <!-- parentProp 是子组件的属性, 所以这种方式不会修改 父组件相应的内容 -->
+    直接修改子组件 props 属性值, 不建议使用-控制台警告
+    <input type="text" v-model.number="parentProp" /> <br>
+
+    <div>子组件的 data 属性值-属于子组件自己,不会与父组件有关联,而自会与子组件自己的 data 绑定: {{childSelf}}</div>
+
+    <!-- 注意以下两种方式的区别
+    v-model: 是双向绑定, 不需要在 @input 中手动赋值
+    v-bind:value: 只是绑定 childSelf 的值, 并没有执行改变,
+        必须依赖于 @input 事件
+    -->
+    <!-- @input input 事件: 在事件触发时调用 子组件的方法 -->
+    修改子组件 data 中的属性 v-model 双向绑定，并将值传递给父组件
+    <input type="text" v-model.number="childSelf" @input="inProp1" />
+    <br>
+    修改子组件 data 中定义的属性 :value 只是赋值，并将值传递给父组件
+    <!-- v-bind 可以省略 :value, 方法调用自动传值-value 绑定的值 -->
+    <input type="text" :value="childSelf" @input="inProp" />
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+  // 子组件
+  const cpn = {
+    // template-id
+    template: '#cpn',
+    // props 引入父组件的属性
+    props: {
+      // 注意如果 prop 是一个对象或数组，是按引用传递。在子组件内修改它会影响父组件的状态，不管是使用哪种绑定类型。
+      parentProp: {
+        type: Number,
+        // required: true, // 如果设置 required = true, 则该组件在使用时, 必须要有该属性, 否则控制台会报错
+        default: -100
+      }
+    },
+    // use a data or computed property based on the prop's value.
+    data() {
+      return {
+        // 把 props 引入的父属性值赋值给 子组件的 属性
+        childSelf: this.parentProp,
+      }
+    },
+    // $emit-method 将事件传递给 父组件
+    methods: {
+      // 如果方法定义有一个参数: 调用不传值, 则会自动传递过来 event 对象
+      // 如果方法没有定义参数: 则会自动
+      inProp(event) {
+        console.log(this.childSelf);
+        // 赋值输入的值到 属性
+        this.childSelf = event.target.value;
+        // 事件名: 发送事件到父组件
+        this.$emit('on-child-prop-change', this.childSelf);
+      },
+      inProp1() {
+        // 事件名
+        this.$emit('on-child-prop-change', this.childSelf);
+      },
+    }
+  }
+
+  // 父组件: Vue 实例
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      num1: 12,
+    },
+    // 引入子组件
+    components: {
+      cpn, // 增强写法: 对象变量名与变量值的变量名等同
+    },
+    methods: {
+      // 子组件的自定义事件激活, 参数来源于
+      cik(val) {
+        this.num1 = parseInt(val);
+      }
+    }
+  });
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue2官方示例</title>
+</head>
+<body>
+
+
+<div id="app">
+  <!-- <todo-list :todos="todos"> -->
+  <todo-list>
+    <template #todo="{ todo }">
+      <span v-if="todo.isComplete">
+        ✅
+      </span>
+      {{ todo.text }}
+    </template>
+  </todo-list>
+
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<template id="todo-list">
+  <div>
+    <ul>
+      <li
+              v-for="todo in filteredTodos"
+              v-bind:key="todo.id"
+      >
+        <!--
+           我们为每个 todo 准备了一个插槽,
+           将 `todo` 对象作为一个插槽的 prop 传入
+        -->
+        <slot name="todo" :todo="todo">
+          <!-- 默认内容 -->
+          {{ todo.text }}
+        </slot>
+      </li>
+    </ul>
+  </div>
+
+</template>
+
+
+<script>
+
+  new Vue({
+    el: '#app',
+    // data: {
+    //   todos: [
+    //     {
+    //       id: 1,
+    //       text: 'learn Java',
+    //       isComplete: true
+    //     },
+    //     {
+    //       id: 2,
+    //       text: 'learn JS',
+    //       isComplete: false
+    //     }
+    //   ]
+    // },
+    components: {
+      todoList: {
+        template: '#todo-list',
+        computed: {
+          filteredTodos () {
+            return [
+              {
+                id: 1,
+                text: 'learn vue',
+                isComplete: true
+              },
+              {
+                id: 3,
+                text: 'learn Java',
+                isComplete: true
+              },
+              {
+                id: 2,
+                text: 'learn JS',
+                isComplete: false
+              }
+            ]
+          }
+        }
+      }
+    }
+  });
+
+</script>
+
+</body>
+</html>

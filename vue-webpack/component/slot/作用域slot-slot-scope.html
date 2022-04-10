@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>作用域插槽-子组件的数据用父组件的样式</title>
+</head>
+<body>
+
+<!--
+作用域 slot: 父组件替换 slot 的标签, 但是内容由子组件来提供
+
+数据属于子组件, 展示方式当前作用域自定义
+
+-->
+
+<div id="app">
+  <!-- 默认 -->
+  子组件的默认展示方式
+  <cpn></cpn>
+
+  <hr>
+
+  引入子组件的数据, 使用父组件的模式
+  <cpn>
+    <!-- 数据是 子组件的, 展示方式有当前作用域定义 -->
+    <!-- Vue2.5.x 以下必须使用 template 标签,  -->
+
+    <template slot-scope="slot">
+      <span v-for="item in slot.data1">{{ item }}- </span>
+    </template>
+  </cpn>
+
+  <hr>
+
+  vue2.5 以上, 可以不使用 template 标签, 使用普通的 html 标签 -- 实际上也可以是自定义的标签, 不一定要标准标签
+
+  <cpn>
+    <div slot-scope="slotProps">
+      <span>{{ slotProps.data1.join(" * ") }}</span>
+    </div>
+  </cpn>
+
+
+  <hr>
+
+  slot-scope 的值可以接收任何有效的可以出现在函数定义的参数位置上的 JavaScript 表达式。
+  这意味着在支持的环境下 (单文件组件或现代浏览器)，你也可以在表达式中使用 ES2015 解构，
+
+  <br>
+  <br>
+
+
+  <cpn>
+    <!--
+       这里 slot-scope {} 中的数据必须为 js 表达式
+       即必须对应 template 中定义的 slot 属性名 "data1"
+    -->
+    <div slot-scope="{ data1 }">
+      <span>{{ data1.join(" * ") }}</span>
+    </div>
+  </cpn>
+
+  <hr>
+
+  vue2.6.0+ 使用 template + v-slot 替换 slot-scope
+
+  <cpn>
+    <!--
+      v-slot 只能应用在 template/组件 元素上
+      这里绑定的属性名 slotProps 可以任意
+    -->
+    <template v-slot:default="slotProps1">
+      <span>{{ slotProps1.data1.join(" * ") }}</span>
+    </template>
+  </cpn>
+
+  <hr>
+
+  <h3>v-slot 同时用于具名插槽和作用域插槽</h3>
+
+  <cpn>
+    <!--
+      v-slot 只能应用在 template 元素上
+    -->
+    <template v-slot:default="{ data1 }">
+      <span>{{ data1.join(" * ") }}</span>
+    </template>
+
+    <!-- v-slot: 后跟的参数实际上是 slot-name 默认为 default -->
+    <template v-slot:aaa="{ data1 }">
+      <span>{{ data1.join(" xxxx ") }}</span>
+    </template>
+
+    <!--
+     如果是默认插槽, :default 可以省略
+    -->
+    <template v-slot="{ data1 }">
+      <span>{{ data1.join(" ddddd ") }}</span>
+    </template>
+    <!-- 等价 -->
+    <!--<template v-slot="slotProps1">-->
+    <!--  <span>{{ slotProps1.data1.join(" ddddd ") }}</span>-->
+    <!--</template>-->
+
+  </cpn>
+
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<!-- 子组件 -->
+<template id="cpn">
+  <div>
+    <!-- v-bind 语法糖 这里的绑定标签属性自定义, 不一定是 :data1
+     这种绑定在 slot 元素上的 attribute 成为 插槽 prop.
+     在父作用域可以使用 data1 访问插槽提供的 prop 的值
+
+     属性值 pLanguages 即对应子组件-当前 scope 中 data 的属性
+    -->
+    <slot :data1="pLanguages">
+      <ul>
+        <li v-for="item in pLanguages">{{ item }}</li>
+      </ul>
+    </slot>
+
+    <br>
+
+    <slot name="aaa" :data1="pLanguages">
+      <ul>
+        <li v-for="item in pLanguages">{{ item }}</li>
+      </ul>
+    </slot>
+  </div>
+</template>
+
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: ''
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+        data () {
+          return {
+            pLanguages: ['JS', 'CSS', 'Java']
+          }
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

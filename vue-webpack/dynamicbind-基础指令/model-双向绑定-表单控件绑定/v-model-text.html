@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-model 表单双向绑定</title>
+</head>
+<body>
+
+<div id="app">
+  <input type="text" v-model="message"> {{message}}
+</div>
+
+<div id="app1">
+  <input type="text" v-model="msg"> {{msg}}
+  <br>
+  <!--
+   新加属性: 非响应的
+  -->
+  {{newProps}}
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '你好啊'
+    }
+  });
+
+  // https://v1-cn.vuejs.org/guide/reactivity.html
+  // 在控制台通过 da.msg 修改 属性值, 也可以实现响应
+  // vue 实例的 data 关联的是对象的引用
+  // 如果属性事先没有定义, 则不是响应式的
+  const da = {
+    msg: '你好啊'
+  };
+
+  const app1 = new Vue({
+    el: '#app1',
+    data: da,
+    mounted() {
+      // this.da.newProps = 0;
+      // console.log('after--', this.da);
+    },
+  });
+
+</script>
+</body>
+</html>

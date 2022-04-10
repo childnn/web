@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  回车添加:
+  <br>
+  <br>
+  <input v-model="newTodo" @keyup.enter="addTodo">
+  <ul>
+    <li v-for="todo in todos">
+      <span>{{ todo.text }}</span>
+      <button @click="removeTodo($index)">X</button>
+    </li>
+  </ul>
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  // ViewModel: 连接 view 和 model
+  new Vue({
+    el: '#app', // view
+    // model
+    data: {
+      newTodo: '',
+      todos: [
+        {text: 'Add some todos'}
+      ]
+    },
+    methods: {
+      addTodo: function () {
+        var text = this.newTodo.trim()
+        if (text) {
+          this.todos.push({text: text})
+          this.newTodo = ''
+        }
+      },
+      removeTodo: function (index) {
+        this.todos.splice(index, 1)
+      }
+    }
+  })
+
+</script>
+
+</body>
+</html>

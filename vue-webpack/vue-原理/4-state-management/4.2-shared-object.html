@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script src="../../lib/vue.js"></script>
+
+<div id="app">
+  <counter></counter>
+  <counter></counter>
+  <counter></counter>
+  <button @click="inc">increment</button>
+
+</div>
+
+
+<script>
+  // create a counter component (that doesn't take any props)
+  // all instances of it should share the same count state
+  // and a button that increments all counters at the same time
+
+  const state = {
+    count: 0
+  }
+
+  const Counter = {
+    // Convert state into reactive object
+    data () {
+      return state
+    },
+    // render: h => h('div', this.count)
+    render (h) {
+      // Proxy the object
+      // 这里 this.count 就是组件的内容
+      return h('div', this.count)
+    }
+  }
+
+  new Vue({
+    el: '#app',
+    components: { Counter },
+    methods: {
+      inc () {
+        state.count++
+      }
+    }
+  })
+
+</script>
+
+
+</body>
+</html>

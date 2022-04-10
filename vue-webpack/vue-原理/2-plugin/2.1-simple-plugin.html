@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+Hints
+1. The plugin should install a global mixin <br>
+2. The global mixin contains a "created" hook <br>
+3. In the hook, check for this.$options.rules <br>
+
+<hr>
+
+
+<div id="app">
+  <input type="text" v-model="foo">
+</div>
+
+<script src="../../lib/vue.js"></script>
+
+<script>
+  const RulesPlugin = {
+    install (Vue) {
+      Vue.mixin({
+        created () {
+          if (this.$options.hasOwnProperty('rules')) {
+            // Do something with rules
+            const rules = this.$options.rules
+            Object.keys(rules).forEach(k => {
+              const rule = rules[k]
+              this.$watch(k, newValue => {
+                const result = rule.validate(newValue)
+                if (!result) {
+                  console.log(rule.message)
+                  alert(rule.message)
+                }
+              })
+            })
+          }
+        }
+      })
+    }
+  }
+
+  Vue.use(RulesPlugin)
+
+  //==================================//
+
+
+  // test
+  const vm = new Vue({
+    el: '#app',
+    data: {foo: 10},
+    rules: {
+      foo: {
+        validate: value => value > 0,
+        message: 'foo must be grater than zero'
+      }
+    }
+  })
+
+  // vm.foo= 0
+
+
+</script>
+
+</body>
+</html>

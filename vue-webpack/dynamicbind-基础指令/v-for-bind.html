@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+
+  <style>
+      .red {
+          color: red;
+      }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <!--<li v-for="m in movies">{{m}}</li>-->
+  <ul>
+    <!--
+     哪个标签有多条, 就把 v-for 加在对应的标签上
+     v-bind: 语法糖
+    -->
+    <li :class="{red: activeIndex === index}"
+        @click="changeColor(this, index)"
+        v-for="(m, index) in movies">
+      {{ index }}-{{ m }}
+    </li>
+  </ul>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      movies: ['海王', '海尔兄弟', '火影', '进击的巨人'],
+      isRed: false,
+      activeIndex: -1
+    },
+    methods: {
+      changeColor: function (t, index) {
+        this.activeIndex = index;
+        // t.isRed = !t.isRed;
+        alert(this.movies[index]);
+        // alert(JSON.stringify(t));
+        // console.log(JSON.stringify(t));
+        // this.movies[index].isRed = !this.movies[index].isRed;
+        // alert(index);
+        // if (index === ) {
+        //   this.isRed = !this.isRed;
+        // }
+      },
+
+    }
+  });
+</script>
+
+</body>
+</html>

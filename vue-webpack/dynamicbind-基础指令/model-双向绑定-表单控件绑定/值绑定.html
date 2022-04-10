@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+  <!--
+
+   值绑定实际上可以认为就是 v-bind
+  -->
+
+  <!--
+   动态ID: 关联 label 和 input 标签
+   :for 与 :id 对应
+
+   v-for 循环 label 及其子标签
+  -->
+  <label v-for="item in originFruits" :for="item">
+    <input type="checkbox" :value="item" :id="item" v-model="fruits">{{item}}
+  </label>
+  <h2>选中的水果: {{fruits}}</h2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      fruits: [],
+      originFruits: ['apple', 'banana', 'pineapple', 'peach']
+    }
+  });
+</script>
+</body>
+</html>

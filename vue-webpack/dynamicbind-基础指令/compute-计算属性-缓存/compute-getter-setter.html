@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <h2>{{fN}}</h2>
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      firstName: 'Jack',
+      lastName: 'Rose'
+    },
+    computed: {
+      /* 这里实际上是 计算属性的简写形式 */
+      fullName: function () {
+        return this.firstName + ' ' + this.lastName;
+      },
+      // 计算属性一般是只读属性, 没有 setter 方法
+      fN: {
+        /* 可以通过浏览器控制台测试
+        * app.fN = "xx xx"
+        * */
+        set: function (newValue) {
+          alert(newValue);
+          this.firstName = newValue
+        },
+        get: function () {
+          return this.firstName + " " + this.lastName;
+        }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

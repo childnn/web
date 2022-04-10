@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>显示过滤/排序后的结果</title>
+</head>
+<body>
+
+有时，我们想要显示一个数组经过过滤或排序后的版本，而不实际变更或重置原始数据。
+在这种情况下，可以创建一个计算属性，来返回过滤或排序后的数组。
+
+<div id="app">
+  <ul>
+    <li v-for="n in evenNumbers">{{n}}</li>
+  </ul>
+</div>
+
+<br>
+<br>
+
+在计算属性不适用的情况下 (例如，在嵌套 v-for 循环中) 你可以使用一个方法：
+
+<div id="app1">
+  <!-- 循环 ul 本身, 此例相当于存在两个列表 -->
+  <ul v-for="set in sets">
+    <li v-for="n in even(set)">{{n}}</li>
+  </ul>
+</div>
+
+<br>
+<br>
+
+v-for 也可以接受整数。在这种情况下，它会把模板重复对应次数。
+
+<div id="ten">
+  <span v-for="n in 10">{{n}}</span>
+</div>
+
+<br>
+<br>
+
+在 template 标签上使用 v-for
+  类似于 v-if，你也可以利用带有 v-for 的 template 来循环渲染一段包含多个元素的内容
+<div id="tem">
+  <template v-for="item in items">
+    <li>{{item}}</li>
+    <li class="divider" role="presentation"></li>
+  </template>
+
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+  // 计算属性
+  new Vue({
+    el: '#app',
+    data: {
+      numbers: [1, 2, 3, 4, 5]
+    },
+    computed: {
+      evenNumbers() {
+        return this.numbers.filter(n => n % 2 === 0);
+      }
+    }
+  });
+
+  // 方法
+  new Vue({
+    el: '#app1',
+    data: {
+      sets: [[1, 2, 3, 4, 5], [6, 7, 8, 9, 10]]
+    },
+    methods: {
+      even(nums) {
+        return nums.filter(n => n % 2 === 0);
+      }
+    }
+  });
+
+  // v-for 接收整数常量
+  new Vue({
+    el: '#ten',
+  });
+
+  // 在 <template> 上使用 v-for
+  new Vue({
+    el: '#tem',
+    data: {
+      items: [1, 2, 3]
+    }
+  });
+
+</script>
+
+</body>
+</html>

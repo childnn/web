@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="demo">
+  <h1>{{ title | uppercase }}</h1>
+  <ul>
+    <li v-for="todo in todos"
+        @click="changeStyle(todo)"
+        :class="todo.done ? 'done' : ''">
+      {{ todo.content }}
+    </li>
+  </ul>
+</div>
+
+<style type="text/css">
+    #demo li.done, .demo li.done {
+        color: #7f8c8d;
+        text-decoration: line-through;
+    }
+</style>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  var demo = new Vue({
+    el: '#demo',
+    data: {
+      title: 'todos',
+      todos: [
+        {
+          done: true,
+          content: 'Learn JavaScript'
+        },
+        {
+          done: false,
+          content: 'Learn Vue.js'
+        }
+      ]
+    },
+    methods: {
+      changeStyle (todo) {
+        todo.done = !todo.done;
+      },
+    },
+    filters: {
+      uppercase (val) {
+        return val.toUpperCase();
+      }
+    }
+  })
+</script>
+
+</body>
+</html>

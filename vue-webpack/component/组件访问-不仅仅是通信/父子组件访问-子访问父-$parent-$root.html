@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>子组件访问父组件: $parent, 根组件: $root</title>
+</head>
+<body>
+
+<!--
+  实际应用中, 不建议在子组件访问父组件
+  子访问父, 可以理解成继承
+  组件的存在是方便 组件的复用, 一旦在组件中访问某个父组件,
+  则必须保证 该子组件的 所有父组件都有相应的属性/方法等,
+  此即失去了复用的灵活性和目的, 父子组件耦合度过高
+  可以用 多继承的弊端 来理解
+
+
+-->
+
+<div id="app">
+  <cpn>
+
+  </cpn>
+</div>
+
+<!--  -->
+<template id="cpn">
+  <div>
+    我是子组件
+    <button @click="btC">获取子组件的 $parent--即 vue 实例</button>
+
+    <!-- 孙子组件 -->
+    <grand-son></grand-son>
+  </div>
+</template>
+
+
+<template id="grandSon">
+  <div>
+    GrandSon
+    <button @click="grandC">grandson 的 $parent and $root</button>
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: 'Vue 实例的 message 属性',
+    },
+    components: {
+      // 子组件: cpn
+      cpn: {
+        template: '#cpn',
+        data() {
+          return {
+            name: `我是子组件的 name`
+          }
+        },
+        methods: {
+          btC() {
+            console.log(this.$parent);
+          }
+        },
+        components: {
+          // cpn 的子组件: grandSon
+          grandSon: {
+            template: '#grandSon',
+            methods: {
+              grandC() {
+                console.log(this.$parent);
+                console.log(this.$parent.name);
+
+                // 访问根组件
+                console.log(`根组件: `, this.$root);
+                console.log(`根组件属性: `, this.$root.message);
+              }
+            }
+          }
+        }
+      },
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <!-- 开发环境版本，包含了有帮助的命令行警告 -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<div id="app"></div>
+<body>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    // 这些是 vue 的生命周期函数, 初始化时自动执行
+    // 由 vue 源码内部调用
+    // 类似 java 中的模版方法
+    beforeCreate: function () {
+      alert("before create")
+    },
+    // 发送请求: 提前获取某些可能耗时的数据
+    created: function () {
+      alert('created');
+    },
+    beforeMount: function () {
+      alert("before mount");
+    },
+    // 真实 DOM 被创建后被调用
+    // 渲染
+    // 在 created 时发送请求
+    // 在 mounted 中渲染
+    // 这样在一定程度上保证 请求/渲染的时间部分重叠
+    // 只有在 mouted 中才能开始访问 DOM
+    mounted: function () {
+      alert('mounted');
+    },
+    // dom 更新
+    beforeUpdate: function () {
+      alert('before update');
+    },
+    updated: function () {
+      alert('updated');
+    },
+    // 销毁
+    beforeDestroy: function () {
+      alert('before destroy');
+    },
+    destroyed: function () {
+      alert('destroyed');
+    }
+
+  });
+</script>
+
+</body>
+</html>

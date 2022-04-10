@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+建议尽可能在使用 v-for 时提供 key attribute，除非遍历输出的 DOM 内容非常简单，或者是刻意依赖默认行为以获取性能上的提升。
+因为它是 Vue 识别节点的一个通用机制，key 并不仅与 v-for 特别关联。后面我们将在指南中看到，它还具有其它用途。
+不要使用对象或数组之类的非基本类型值作为 v-for 的 key。请用字符串或数值类型的值。
+
+<!--
+  app.letters.splice(2, 2); // 从索引二开始, 删除两个元素
+  app.letters.splice(2, 0, 'F'); //往 第二个元素后(在索引二的位置)插入元素, 可以插入多个 或者 一个列表 app.letters.splice(2, 0, ['m', 'n']), 该列表是个整体
+-->
+<div id="app">
+  <!-- key 的作用就是高效的更新虚拟 DOM
+  但是, 如果使用 item 作为 key, 在 key 重复时会报错
+  不要用 index, index 与数据的对应不是固定的
+  key 应该是用恒定且唯一的值
+  -->
+  <ul>
+    <li v-for="item in letters" :key="item">{{item}}</li>
+  </ul>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      letters: ['a', 'b', 'c', 'd']
+    }
+  });
+</script>
+</body>
+</html>

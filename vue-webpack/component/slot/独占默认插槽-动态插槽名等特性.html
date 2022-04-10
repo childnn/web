@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>独占默认插槽的缩写语法</title>
+</head>
+<body>
+
+<!--
+
+  解构插槽 Prop
+    作用域插槽的内部工作原理是将你的插槽内容包裹在一个拥有单个参数的函数里：
+
+    function (slotProps) {
+      // 插槽内容
+    }
+    这意味着 v-slot 的值实际上可以是任何能够作为函数定义中的参数的 JavaScript 表达式。所以在支持的环境下 (单文件组件或现代浏览器)，你也可以使用 ES2015 解构来传入具体的插槽 prop，如下：
+
+    <current-user v-slot="{ user }">
+      {{ user.firstName }}
+    </current-user>
+    这样可以使模板更简洁，尤其是在该插槽提供了多个 prop 的时候。它同样开启了 prop 重命名等其它可能，例如将 user 重命名为 person：
+
+    <current-user v-slot="{ user: person }">
+      {{ person.firstName }}
+    </current-user>
+    你甚至可以定义后备内容，用于插槽 prop 是 undefined 的情形：
+
+    <current-user v-slot="{ user = { firstName: 'Guest' } }">
+      {{ user.firstName }}
+    </current-user>
+
+ vue 2.6.0+
+    动态指令参数也可以用在 v-slot 上，来定义动态的插槽名：
+
+    <base-layout>
+      <template v-slot:[dynamicSlotName]>
+        ...
+      </template>
+    </base-layout>
+
+-->
+
+当被提供的内容只有默认插槽时，组件的标签才可以被当作插槽的模板来使用。这样我们就可以把 v-slot 直接用在组件上：
+
+注意默认插槽的缩写语法不能和具名插槽混用，因为它会导致作用域不明确：
+只要出现多个插槽，请始终为所有的插槽使用完整的基于 template v-slot 的语法：
+
+<div id="app">
+  <current-user v-slot="{ user1 }">{{ user1 }}</current-user>
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<template id="current-user">
+  <div>
+    <slot :user1="user"></slot>
+  </div>
+</template>
+
+<script>
+  new Vue({
+    el: '#app',
+    components: {
+      currentUser: {
+        template: '#current-user',
+        data () {
+          return {
+            user: {
+              name: 'Jack',
+              age: 18
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+
+
+</body>
+</html>

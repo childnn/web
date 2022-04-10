@@ -205,7 +205,7 @@ static String changeStyle(String str, boolean toCamel) {
     }
 }
 
-//生成序列化的serialVersionUID
+// 生成序列化的serialVersionUID
 static String genSerialID() {
     return "\tprivate static final long serialVersionUID =  " + Math.abs(new Random().nextLong()) + "L;"
 }

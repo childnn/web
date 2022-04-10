@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>同一个组件的多个插槽用 name 属性区分--组件的单个模版无需指定 name 属性</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn></cpn>
+  <hr>
+  <cpn>
+    <button>替换无名</button>
+    <!-- 标签的 slot 属性: 指定 slot name 属性值 -->
+    <a slot="center">替换中间</a>
+  </cpn>
+</div>
+
+
+仍然可以有一个匿名 slot，它是默认 slot，作为找不到匹配的内容片段的回退插槽。如果没有默认的 slot，这些找不到匹配的内容片段将被抛弃。
+
+<!-- 子组件 -->
+<template id="cpn">
+  <div>
+    <slot name="left">左边</slot>
+    <br>
+    <slot name="center">中间</slot>
+    <br>
+    <slot name="right">右边</slot>
+    <br>
+    <!--一个不带 name 的 <slot> 出口会带有隐含的名字“default”。-->
+    <slot>无名-默认-default</slot>
+    <br>
+    <slot>无名-默认-default</slot>
+    <br>
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: ''
+    },
+    components: {
+      cpn: {
+        template: '#cpn',
+
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

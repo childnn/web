@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>官网示例-vue1.0</title>
+
+</head>
+<body>
+
+<div id="example">
+
+  <my-component></my-component>
+
+</div>
+
+
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  // 定义
+  var myCom = Vue.extend({
+    template: `<div>A custom component!</div>`
+  });
+  // 注册: 全局组件, 根据组件ID任意使用
+  Vue.component('my-component', myCom);
+
+  // 创建 vue 实例
+  new Vue({
+    el: '#example'
+  });
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+ <!-- 动态绑定标签的属性 -->
+<div id="app">
+  <img v-bind:src="imgUrl" alt="">
+  <a v-bind:href="baidu">百度一下</a>
+  <!-- v-bind 语法糖 -->
+  <img :src="imgUrl" alt="">
+  <a :href="baidu">百度一下</a>
+  <!-- 如果属性名不加 冒号前缀, 则属性值会被作为 普通字符串 解析, 而不是交由 vue 解析 -->
+  <a href="baidu">百度一下</a>
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      imgUrl: '../../img/off.gif',
+      baidu: 'http://www.baidu.com'
+    }
+  });
+</script>
+
+</body>
+</html>

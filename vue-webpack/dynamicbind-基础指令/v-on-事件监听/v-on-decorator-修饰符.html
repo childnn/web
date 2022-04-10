@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-on-修饰符</title>
+</head>
+<body>
+<!--
+decorator
+-->
+
+<div id="app">
+  <!--
+    vue 官方示例
+  -->
+  <!-- 阻止单击事件冒泡 -->
+  <a v-on:click.stop="doThis"></a>
+  <!-- 提交事件不再重载页面 -->
+  <form v-on:submit.prevent="onSubmit"></form>
+  <!-- 修饰符可以串联 -->
+  <a v-on:click.stop.prevent="doThat"></a>
+  <!-- 只有修饰符 -->
+  <form v-on:submit.prevent></form>
+
+
+  <!--1.0.16 添加了两个额外的修饰符：-->
+
+  <!-- 添加事件侦听器时使用 capture 模式 -->
+  <div v-on:click.capture="doThis">...</div>
+  <!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+  <div v-on:click.self="doThat">...</div>
+
+  <!--
+  -------------------  -------------------  -------------------
+  -->
+
+
+  <!-- .stop 修饰符的使用, 停止冒泡
+  调用 event.stopPropagation()
+  所谓冒泡是指: 子标签的事件会传递到父标签
+
+  -->
+ <div @click="divC">
+   div-click
+   <!-- .stop 修饰符会禁止 子标签的事件传递到父标签, 即禁止冒泡 -->
+   <button @click.stop="btnC">btn-click</button>
+ </div>
+
+  <div @click="divC">
+    div-click
+    <button @click="btnC">btn-click</button>
+  </div>
+
+  <!-- .prevent 修饰符使用, 阻止默认行为
+    调用 event.preventDefault()
+  -->
+  <form action="http://www.baidu.com">
+    <!-- 此处 input 标签的默认事件就是 submit--提交 -->
+    <!-- 点击即提交 -->
+    <input type="submit" value="提交"/>
+    <!-- 在点击时不提交
+     .prevent 修饰符告诉 v-on 指令对于触发的事件调用 event.preventDefault()
+     阻止默认事件
+     -->
+    <input type="submit" value="不提交" @click.prevent="subClick"/>
+  </form>
+
+  <!--
+    监听键盘
+  -->
+  <!-- key 弹起时执行-->
+  <!-- 监听任意键 -->
+  <input type="text" @keyup="keyUp" placeholder="任意键执行"/>
+  <!-- 监听 enter 键 -->
+  <!--
+  .exact 修饰符允许你控制由精确的系统修饰符组合触发的事件。
+   如果不加 .exact, 即使 alt/shift 被一同按下也会触发
+   如果加上 .exact, 表示有且只有 enter 按下会触发
+  -->
+  <input type="text" @keyup.enter.exact="keyUp" placeholder="回车执行"/>
+
+  <br/>
+
+  <!--
+   .once 修饰符
+  -->
+  <button @click="onceB">点击一次执行一次</button>
+  <button @click.once="onceB">第一次点击时执行一次</button>
+
+
+  鼠标按钮修饰符
+  2.2.0 新增
+  .left
+  .right
+  .middle
+  <div @click.right.prevent="rightClick">右键单击</div>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: ''
+    },
+    methods: {
+      divC() {
+        console.log("第艾薇");
+      },
+      btnC() {
+        console.log("巴疼")
+      },
+      subClick() {
+        console.log("don't submit.");
+      },
+      keyUp() {
+        console.log("key up");
+      },
+      onceB() {
+        console.log("once");
+      },
+      rightClick () {
+        alert("右键单击")
+      },
+    }
+  });
+</script>
+
+</body>
+</html>

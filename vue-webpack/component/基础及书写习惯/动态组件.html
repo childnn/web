@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>动态组件</title>
+</head>
+<body>
+
+有的时候，在不同组件之间进行动态切换是非常有用的，比如在一个多标签的界面里：
+可以通过 Vue 的
+component 元素加一个特殊的 "is" attribute 来实现：
+currentTabComponent 可以包括
+已注册组件的名字，或 一个组件的选项对象
+
+<br>
+注: 这个 attribute 可以用于常规 HTML 元素，但这些元素将被视为组件，
+这意味着所有的 attribute 都会作为 DOM attribute 被绑定。
+对于像 value 这样的 property，若想让其如预期般工作，你需要使用 .prop 修饰器。
+
+<br>
+<br>
+
+<div id="dynamic-component-demo">
+  <button v-for="tab in tabs"
+          :key="tab"
+          class="dynamic-component-demo-tab-button"
+          :class="{'dynamic-component-demo-tab-button-active': currentTab === tab}"
+          @click="currentTab = tab"
+  >
+    {{ tab }}
+  </button>
+
+  <!-- 组件会在 `currentTabComponent` 改变时改变 -->
+  <component :is="currentTabComponent" class="dynamic-component-demo-tab-button"></component>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<!--<template id="home">-->
+<!--  <div class="dynamic-component-demo-tab-button" :style="active ? {class: 'dynamic-component-demo-tab-button-active'} : ''">-->
+<!--    <button>Home</button>-->
+<!--    {{ msg }}-->
+<!--  </div>-->
+
+<!--</template>-->
+
+<template id="tab-home">
+  <div>Home component</div>
+</template>
+
+
+<template id="tab-posts">
+  <div>Posts component</div>
+</template>
+
+<template id="tab-archive">
+  <div>Archive component</div>
+</template>
+
+<script>
+  new Vue({
+    el: '#dynamic-component-demo',
+    data: {
+      currentTab: 'Home',
+      tabs: ['Home', 'Posts', 'Archive']
+    },
+    computed: {
+      currentTabComponent () {
+        return 'tab-' + this.currentTab.toLowerCase();
+      }
+    },
+    components: {
+      tabHome: {
+        template: '#tab-home' // template-id
+      },
+      tabPosts: {
+        template: '#tab-posts'
+      },
+      tabArchive: {
+        template: '#tab-archive'
+      }
+    }
+  });
+
+</script>
+
+<style>
+  .dynamic-component-demo-tab-button {
+    padding: 6px 10px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background: #f0f0f0;
+    margin-bottom: -1px;
+    margin-right: -1px;
+  }
+
+  .dynamic-component-demo-tab-button-active {
+    background: #e0e0e0;
+  }
+</style>
+
+</body>
+</html>

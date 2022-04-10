@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>动态参数</title>
+</head>
+<body>
+
+从 vue-2.6.0 开始，可以用方括号括起来的 JavaScript 表达式作为一个指令的参数：
+
+<div id="app">
+  <br>
+  <!--
+      注意，参数表达式的写法存在一些约束，如之后的“对动态参数表达式的约束”章节所述。
+      [attr] 将被替换为 href
+      这里是动态属性, v-bind
+      如果是事件的动态名称 v-on, 也可以使用 @[event]
+  -->
+  <a :[attr]="link">click</a>
+
+  <br>
+  <br>
+  对动态参数的值的约束
+  动态参数预期会求出一个字符串，异常情况下值为 null。这个特殊的 null 值可以被显性地用于移除绑定。
+  任何其它非字符串类型的值都将会触发一个警告。
+
+  <br>
+  <br>
+
+  对动态参数表达式的约束
+  动态参数表达式有一些语法约束，因为某些字符，如空格和引号，放在 HTML attribute 名里是无效的。例如：
+
+  <!-- 这会触发一个编译警告 -->
+  <!--<a v-bind:['foo' + bar]="value"> ... </a>-->
+
+  变通的办法是使用没有空格或引号的表达式，或用计算属性替代这种复杂表达式。
+
+  <br>
+  <br>
+
+  在 DOM 中使用模板时 (直接在一个 HTML 文件里撰写模板)，还需要避免使用大写字符来命名键名，
+  因为浏览器会把 attribute 名全部强制转为小写：
+
+  <!--
+  在 DOM 中使用模板时这段代码会被转换为 `v-bind:[someattr]`。
+  除非在实例中有一个名为“someattr”的 property，否则代码不会工作。
+  -->
+  编译警告
+  <a v-bind:[someAttr]="value"> ... </a>
+
+  <br>
+  <br>
+
+
+
+
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<script>
+
+  new Vue({
+    el: '#app',
+    data: {
+      attr: 'href',
+      link: 'https://www.baidu.com'
+    }
+  });
+
+</script>
+
+</body>
+</html>

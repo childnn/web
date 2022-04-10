@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+  <cpn></cpn>
+</div>
+
+
+<!-- template -->
+<template id="cpn">
+  <div>
+    <!--
+    浏览器控制台报错:
+    [Vue warn]: Property or method "message" is not defined on the instance but referenced during render.
+    Make sure that this property is reactive, either in the data option, or for class-based components,
+    by initializing the property.
+    -->
+    <h1>{{message}}</h1>  <!-- 此 message 来源于 vue 实例, 无法被组件访问 -->
+    <h2>{{title}}</h2>
+    <p>{{content}}</p>
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+  /*
+  * 组件也是一个 vue 实例, 也有 data 属性, 但 组件的 data 必须为 function 而不是 简单的 obj
+  *  */
+  Vue.component('cpn', {
+    template: '#cpn',
+    // 组件 data 必须为 function 类型
+    data() {
+      // 返回一个 对象
+      return {
+        title: '我是组件的标题',
+        content: '我是组件的内容'
+      }
+    }
+  });
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '组件无法访问Vue实例的数据'
+    }
+  });
+
+</script>
+
+</body>
+</html>

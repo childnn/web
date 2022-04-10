@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script src="../../lib/vue.js"></script>
+
+
+<div id="app">
+  <counter :count1="count"></counter>
+  <counter :count1="count"></counter>
+  <counter :count1="count"></counter>
+  <button @click="count++">increment</button>
+</div>
+
+<script>
+  // requirement: a counter component rendered 3 times
+  // the component takes the current count via props
+  // and a button that increments all 3 counters at home
+  new Vue({
+    el: '#app',
+    data: {
+      count: 0
+    },
+    components: {
+      Counter: {
+        props: {
+          count1: Number
+        },
+        template: `<div>{{ count1 }}</div>`
+      }
+    }
+  });
+
+
+</script>
+
+</body>
+</html>

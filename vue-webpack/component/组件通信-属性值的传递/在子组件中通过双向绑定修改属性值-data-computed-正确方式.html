@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>在子组件中通过双向绑定修改父组件属性值-正确方式</title>
+</head>
+<body>
+
+<div id="app">
+  父组件属性值：{{ appNum }}
+  <br>
+  修改父组件属性值
+  <input type="text" v-model.number="appNum">
+
+  <br>
+
+  <appcnp :tnumber1="appNum"></appcnp>
+
+</div>
+
+<template id="t-cnp">
+  <div>
+    子组件 props 属性值
+    {{ tnumber1 }}
+
+    <br>
+
+    子组件 props 属性值, 即使这里修改也会被父组件新的属性值覆盖
+    --控制台警告
+    <input type="text" v-model="tnumber1" >
+
+    <br>
+
+    <!-- 这样就只会修改 子组件本身的值, 而不会与组件属性形成冲突 -->
+    子组件 data 属性值, 不会收到父组件值的影响
+    <input type="text" v-model="nn1" >
+
+  </div>
+</template>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+<script>
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      appNum: 12
+    },
+    components: {
+      appcnp: {
+        template: '#t-cnp', // 子组件模版ID
+        props: { // 子组件属性
+          tnumber1: Number
+        },
+        // data
+        data() {
+          return {
+            n1: this.tnumber1
+          }
+        },
+        // 计算属性: 必须有 set 属性
+        computed: {
+          nn1: {
+            set(val) {
+              this.n1 = val;
+            },
+            get() {
+              return this.n1;
+            }
+          }
+        }
+      }
+    },
+    methods: {
+      changeNumber() {
+        this.appNum++;
+      }
+    }
+  });
+
+</script>
+
+
+</body>
+</html>

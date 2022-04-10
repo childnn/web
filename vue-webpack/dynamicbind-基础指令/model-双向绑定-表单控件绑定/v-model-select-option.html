@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>单选-多选下拉</title>
+</head>
+<body>
+
+<div id="app">
+  <label for="se"></label>
+  <!-- 多选 multiple
+    注意 v-model 所处的位置
+  -->
+  <select name="abc" id="se" v-model="fruits" multiple>
+    <option value="苹果" >apple</option>
+    <option value="香蕉" selected>banana</option>
+    <option value="菠萝">pineapple</option>
+    <option value="桃子">peach</option>
+  </select>
+  <h2>已选: {{fruits}}</h2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      fruits: ['桃子']
+    }
+  });
+</script>
+
+</body>
+</html>

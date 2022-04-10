@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>具名插槽官方示例-v2.6.0-以前</title>
+</head>
+<body>
+
+<!--
+ 渲染后的结果
+ <div class="container">
+  <header>
+    <h1>Here might be a page title</h1>
+  </header>
+  <main>
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
+  </main>
+  <footer>
+    <p>Here's some contact info</p>
+  </footer>
+</div>
+
+-->
+
+<div id="app">
+  <base-layout>
+    <template slot="header">
+      <h1>Here might be a page title</h1>
+    </template>
+
+    <!-- 替换 slot 的内容不一定要有唯一一个根元素, 也可以是多个元素 -->
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
+
+    <template slot="footer">
+      <p>Here's some contact info</p>
+    </template>
+  </base-layout>
+
+  <base-layout>
+    <h1 slot="header">Here might be a page title</h1>
+
+    <!-- 替换 slot 的内容不一定要有唯一一个根元素, 也可以是多个元素 -->
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
+
+    <p slot="footer">Here's some contact info</p>
+  </base-layout>
+
+  <hr>
+
+ <h3> <a href="https://github.com/vuejs/rfcs/blob/master/active-rfcs/0001-new-slot-syntax.md">new-slot语法</a></h3>
+
+
+  vue 2.6.0+
+  在向具名插槽提供内容的时候，我们可以在一个
+  template 元素上使用 v-slot 指令，并以 v-slot 的参数的形式提供其名称：
+  注意 v-slot 只能添加在 template 上 (<a href="https://cn.vuejs.org/v2/guide/components-slots.html#%E7%8B%AC%E5%8D%A0%E9%BB%98%E8%AE%A4%E6%8F%92%E6%A7%BD%E7%9A%84%E7%BC%A9%E5%86%99%E8%AF%AD%E6%B3%95">
+  只有一种例外情况</a>)，这一点和已经废弃的 slot attribute 不同。
+
+  <base-layout>
+    <template v-slot:header>
+      <h1>Here might be a page title</h1>
+    </template>
+
+    <p>A paragraph for the main content.</p>
+    <p>And another one.</p>
+
+    <template v-slot:footer>
+      <p>Here's some contact info</p>
+    </template>
+  </base-layout>
+
+  <hr>
+  现在 template 元素中的所有内容都将会被传入相应的插槽。任何没有被包裹在带有 v-slot 的 template 中的内容都会被视为默认插槽的内容。
+  然而，如果你希望更明确一些，仍然可以在一个 template 中包裹默认插槽的内容：
+
+  <base-layout>
+    <!--<h1 v-slot:header>Here might be a page title</h1>-->
+    <!-- v-slot can only be used on components or <template>. -->
+    <template v-slot:header>
+      <h1>Here might be a page title</h1>
+    </template>
+
+    <template v-slot:default>
+      <p>A paragraph for the main content.</p>
+      <p>And another one.</p>
+    </template>
+
+    <template v-slot:footer>
+      <p>Here's some contact info</p>
+    </template>
+  </base-layout>
+
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="/vue-webpack/lib/vue.js"></script>
+<!--<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>-->
+
+<template id="base-layout">
+  <div>
+    <header>
+      <slot name="header"></slot>
+    </header>
+    <main>
+      <!-- 默认 name 为 default -->
+      <slot></slot>
+    </main>
+    <footer>
+      <slot name="footer"></slot>
+    </footer>
+  </div>
+</template>
+
+
+<script>
+  new Vue({
+    el: '#app',
+    components: {
+      baseLayout: {
+        template: '#base-layout'
+      }
+    }
+  });
+
+</script>
+
+
+</body>
+</html>

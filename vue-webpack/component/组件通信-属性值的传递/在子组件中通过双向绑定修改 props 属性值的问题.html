@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>!!!双向绑定禁止绑定 props 属性!!!</title>
+</head>
+<body>
+
+父组件传递给子组件的属性不可以通过子组件的 props 属性直接修改, 因为 props 属性是与关联的父组件
+绑定的, 一旦父组件的相应属性值改变, 此时子组件的关联 props 值会改变
+<br>
+即: 子组件的 props 属性永远只能通过父组件修改, 而不是直接子组件修改
+
+<div id="app">
+  父组件属性值: {{appNum}}
+  <cpn :number1="appNum"></cpn>
+
+</div>
+
+<template id="my-cpn">
+  <div>
+    子组件属性值: {{number1}}
+    <br>
+    <!--
+      在子组件中通过双向绑定修改父组传过来的 props 值
+      F12-警告
+      [Vue warn]: Avoid mutating a prop directly since the value will be overwritten
+      whenever the parent component re-renders.
+      Instead, use a data or computed property based on the prop's value.
+      Prop being mutated: "number1"
+
+      如果想要修改 props 的属性, 应该使用 data/computed 这种间接方式
+    -->
+    直接修改子组件的 props 属性值,控制台会抱警告
+    <input type="text" v-model.number="number1">
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+  const app = new Vue({
+    el: '#app',
+    data: {
+      appNum: 131231
+    },
+    methods: {
+
+    },
+    // 子组件
+    components: {
+      // 子组件名
+      cpn: {
+        template: '#my-cpn', // template-id
+        // 子组件属性: 可以绑定父组件的值
+        props: {
+          number1: Number,
+          number2: {
+            type: [Number, String],
+            default: 1
+          }
+        }
+      }
+    }
+  });
+
+</script>
+
+
+
+</body>
+</html>

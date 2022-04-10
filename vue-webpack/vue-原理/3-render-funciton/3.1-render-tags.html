@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script src="../../lib/vue.js"></script>
+
+
+<div id="app">
+  <example :tags="['h1', 'h2', 'h3']"></example>
+</div>
+
+<script>
+  Vue.component('example', {
+    functional: true,
+    props: {
+      tags: {
+        type: Array,
+        validator (arr) {
+          return !!arr.length
+        }
+      }
+    },
+    render: (h, context) => {
+      const tags = context.props.tags
+      return h('div', context.data, tags.map((tag, context) => h(tag, context)))
+    }
+  })
+
+  new Vue({
+    el: '#app'
+  })
+</script>
+
+
+</body>
+</html>

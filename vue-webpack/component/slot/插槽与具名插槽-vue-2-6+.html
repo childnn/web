@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue2.6.0+插槽与具名插槽的整合处理</title>
+</head>
+<body>
+
+<div id="app">
+  <!--
+   v-slot:default 省略为 v-slot
+   v-slot: 可以简写为 #
+   如果是 default slot 需要参数, 必须写作 #default
+  -->
+  <foo v-slot="{msg}">{{ msg }}</foo>
+  <foo #child="{msg1}">{{ msg1 }}</foo>
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<template id="foo">
+  <div>
+    <!-- v-bind 可以省略 -->
+    <slot v-bind:msg="message"></slot>
+    <slot name="child" :msg1="message1"></slot>
+  </div>
+</template>
+
+
+
+<script>
+  new Vue({
+    el: '#app',
+    components: {
+      foo: {
+        template: '#foo',
+        data () {
+          return {
+            message: '我是默认插槽',
+            message1: '我是具名插槽'
+          }
+        }
+      }
+    }
+  });
+</script>
+
+
+</body>
+</html>

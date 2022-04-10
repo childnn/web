@@ -1,0 +1,6 @@
+导出:
+  module.exports = {
+     // ..
+  }
+导入:
+ require('相对路径')

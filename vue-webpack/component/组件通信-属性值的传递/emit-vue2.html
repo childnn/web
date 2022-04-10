@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>vue2官方示例</title>
+</head>
+<body>
+
+<div id="blog-posts-events-demo">
+  <!--
+    style 放在 div 或者 blog-post 均可
+  -->
+  <div>
+    <blog-post :style="{ fontSize: postFontSize + 'em'}"
+            v-for="post in posts"
+            v-bind:key="post.id"
+            v-bind:post="post"
+            @enlarge-text="postFontSize += 0.1"
+    ></blog-post>
+  </div>
+</div>
+
+
+<template id="blog-post">
+  <div class="blog-post">
+    <h3>{{ post.title }}</h3>
+    <button @click="$emit('enlarge-text')">
+      Enlarge text
+    </button>
+    <div v-html="post.content"></div>
+  </div>
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  new Vue({
+    el: '#blog-posts-events-demo',
+    data: {
+      posts: [
+        {
+          title: 'My journey with Vue',
+          content: '...content...'
+        },
+        {
+          title: 'Blogging with Vue',
+          content: '...content...'
+        },
+        {
+          title: 'Why Vue is son fun',
+          content: '...content...'
+        }
+      ],
+      postFontSize: 1
+    },
+    components: {
+      blogPost: {
+        template: '#blog-post',
+        props: ['post']
+      },
+    }
+  });
+
+</script>
+
+</body>
+</html>

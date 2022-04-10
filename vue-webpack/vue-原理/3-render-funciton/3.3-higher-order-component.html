@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<script src="../../lib/vue.js"></script>
+
+<div id="app">
+  <smart-avatar username="vuejs"></smart-avatar>
+
+</div>
+
+<script>
+  // mock API
+  function fetchURL (username, cb) { // callback
+    setTimeout(() => {
+      // hard coded, bonus: exercise: make it fetch from gravatar!
+      cb('https://avatars3.githubusercontent.com/u/6128107?v=4&s=200');
+    }, 50)
+  }
+
+  // 子组件
+  const Avatar = {
+    props: ['src'],
+    template: `<img :src="src">`
+  }
+
+  function withAvatarURL (InnerComponent) {
+    return {
+      props: {
+        username: String
+      },
+      data () {
+        return {
+          url: 'http://via.placeholder.com/200x200'
+        }
+      },
+      created () {
+        fetchURL(this.username, url => this.url = url)
+      },
+      render (h) {
+        // var defSlots = this.$slots.default; // 默认 slot 数组
+        // var slotNameSlots = this.$slots.slotName; // 名为 slotName 的 slot 数组
+        // 可以把 slot 的内容传给 h 函数的第二个参数
+        //
+        // this.$attrs // vue-2.4. html-attributes -- 没有在 data 中声明的属性
+        return h(InnerComponent, {props: {src: this.url}})
+      }
+    }
+  }
+
+  const SmartAvatar = withAvatarURL(Avatar)
+
+  new Vue({
+    el: '#app',
+    components: {SmartAvatar}
+  })
+
+
+</script>
+
+</body>
+</html>

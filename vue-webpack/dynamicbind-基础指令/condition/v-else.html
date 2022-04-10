@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+
+v-else 元素必须紧跟在带 v-if 或者 v-else-if 的元素的后面，否则它将不会被识别。
+2.1.0 新增 ==== v-else-if
+
+<div id="app">
+  <h2 v-if="score >= 90">优秀</h2>
+  <h2 v-else-if="score >= 80">良好</h2>
+  <h2 v-else-if="score >= 60">及格</h2>
+  <h2 v-else>不及格</h2>
+
+  <!--
+   多个条件, 一般不会使用多标签的 v-if/else...
+   而是做封装更合理
+  -->
+  <h2>{{result}}</h2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      score: 99
+    },
+    computed: {
+      result() {
+        let showMsg = '';
+        if (this.score >= 90) {
+          showMsg = '优秀';
+        } else if (this.score >= 80) {
+          showMsg = '良好';
+        } else if (this.score >= 60) {
+          showMsg = '及格';
+        } else {
+          showMsg = '不及格';
+        }
+        return showMsg;
+      }
+    }
+  });
+</script>
+
+
+</body>
+</html>

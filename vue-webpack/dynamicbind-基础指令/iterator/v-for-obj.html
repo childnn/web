@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+在遍历对象时，会按 Object.keys() 的结果遍历，但是不能保证它的结果在不同的 JavaScript 引擎下都一致。
+
+
+<div id="app">
+  <ul>
+    <!-- 遍历对象时, 获取到的一个值就是 value -->
+    <li v-for="item in info">{{item}}</li>
+  </ul>
+
+  <ul>
+    <!--
+      前面的是 value, 后面的是 key
+    -->
+    <li v-for="(v, k) in info">{{k}}-{{v}}</li>
+  </ul>
+  <ul>
+    <!--
+      前面的是 value, 后面的是 key, 最后是 index
+    -->
+    <li v-for="(v, k, index) in info">{{index}}-{{k}}-{{v}}</li>
+  </ul>
+
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      info: {
+        name: 'who',
+        age: 18,
+        height: 1.88
+      }
+    }
+  });
+</script>
+</body>
+</html>

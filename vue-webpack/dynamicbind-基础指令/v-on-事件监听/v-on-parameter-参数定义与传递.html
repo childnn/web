@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<!-- parameter-->
+
+<div id="app">
+  <!--
+    事件调用的方法没有参数
+    可以省略方法调用时的小括号, 也可以加上
+  -->
+
+  <button @click="btnClick">bt1</button>
+  <button @click="btnClick()">bt2</button>
+  <button @click="btnClick1()">bt3</button>
+  <!-- 默认参数 event -->
+  <!--
+   在事件定义时, 如果函数定义需要一个参数, 而函数调用时省略了小括号, 这个时候,
+   vue 会默认将浏览器生产的 event 事件对象作为参数传入到方法
+  -->
+  <!--
+    !!! 注意以下两种方式的区别
+    不加括号的形式, 相当于 vue 自动将调用方式处理为 btnClick2(event)
+    实际上, 方法形参不一定为 event, 这里只是为了见名知意
+  -->
+  <button @click="btnClick2">event</button>
+  <button @click="btnClick2()">not-event</button>
+
+  <br/>
+
+  <!-- 多参数 -->
+  <button @click="btnClick3">event1</button>
+  <button @click="btnClick3(123)">event1</button>
+  <!--
+    这里 $event 表示浏览器的 event 实例, 参数顺序无关
+  -->
+  <button @click="btnClick3($event, 'abc')">$event</button>
+  <button @click="btnClick3('abc123123', $event)">$event</button>
+  <!--
+     如果不加引号, 作为变量处理
+     从 vue 实例的 data 解析其对应的值
+   -->
+  <button @click="btnClick3(event, abc)">event</button>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      event: "这是event属性",
+      abc: '这是abc'
+    },
+    methods: {
+      btnClick() {
+        console.log('aaaa');
+      },
+      /* 如果函数定义了参数, 但是调用时没有传递实参(调用时加了小括号但是没有传参数), 则参数默认值未 undefined */
+      btnClick1(abc) {
+        console.log("bbbb--", abc);
+      },
+      btnClick2(event) {
+        console.log("bbbb--", event);
+      },
+      btnClick3(event, abc) {
+        console.log("------", event, abc);
+      }
+    }
+  });
+</script>
+</body>
+</html>

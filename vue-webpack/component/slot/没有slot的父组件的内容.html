@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>父组件的内容将被抛弃，除非子组件模板包含 <slot></title>
+</head>
+<body>
+
+<div id="mother">
+
+  <!--
+   在没有插槽的情形下, 将显示子组件的内容,
+   除非 子组件本身无效--子组件的标签无效, 会显示父组件的内容
+  -->
+  <c>我是父组件的内容</c>
+
+  <invalid-child>无效的子组件标签,显示父组件的内容</invalid-child>
+
+</div>
+
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<template id="child">
+  <div>
+    {{msg}}
+  </div>
+
+</template>
+
+<script>
+  new Vue({
+    el: '#mother',
+    components: {
+      c: {
+        template: '#child', // template-id
+        data() {
+          return {
+            msg: '我是子组件的内容'
+          }
+        }
+      }
+    }
+  });
+
+</script>
+
+</body>
+</html>
+

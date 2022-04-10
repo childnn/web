@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>父组件访问子组件: $children $ref</title>
+</head>
+<body>
+
+<div id="app">
+  <!-- 这里 闭合标签 会隐藏下面的 按钮--解析失败, 一般而言 子组件 可以为 自闭合标签, 这里不清楚原因 -->
+  <!--
+  引入多个子组件: this.$children 的列表中就会有多个组件
+  如果没有子组件, this.$children 为空数组
+  实际应用中, this.$children 获取到所有子组件, 不太方便处理
+  一般都需要精确的定位到某个特定的子组件, 使用子组件的 ref 属性
+  通过 this.$refs 获取, this.$refs 默认是空对象
+  对象的 key 值是 组件 ref 的属性值
+  value 是对应的组件对象, VueComponent 类型
+
+  -->
+  <cpn></cpn>
+
+  <!-- ref 就是子组件一个默认的属性 -->
+  <cpn ref="xyz"></cpn>
+  <cpn ref="abc"></cpn>
+  <button @click="btnClick">$child 按钮</button>
+  <br>
+  <button @click="btnRefs">$refs 按钮</button>
+</div>
+
+<!-- template -->
+<template id="cpn">
+  <div>
+    我是子组件
+  </div>
+
+</template>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+
+  // 子组件
+  const cpn = {
+    template: '#cpn',
+    methods: {
+      showMsg() {
+        console.log("子组件的 showMsg 方法");
+      }
+    },
+    data() {
+      return {
+        name: `我是子组件的name`,
+      }
+    }
+  }
+
+  // vue 实例
+  // 父组件
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: ''
+    },
+    components: {
+      cpn,
+    },
+    methods: {
+      // $children 一般用于获取所有子组件
+      btnClick() {
+        // $children 为 数组: [VueComponent] 类型
+        console.log(this.$children);
+        for (let c of this.$children) {
+          console.log(c.name);
+          if (c.showMsg) {
+            c.showMsg();
+          }
+          if (c.aaa) {
+            c.aaa();
+          } else {
+            console.log("子组件`%s`没有 aaa 方法", c._uid);
+          }
+        }
+      },
+      // $refs 默认为空对象, 必须设置组件的 ref 属性
+      // $refs 的好处就是不依赖索引, 类似于 标签的 id 定位
+      // 多个子组件中的某个特定 子组件
+      btnRefs() {
+        console.log(this.$refs);
+        let xyz = this.$refs.xyz;
+        console.log(xyz.name);
+        xyz.showMsg();
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

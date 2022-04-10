@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<div id="app">
+
+  <!-- 关于计算属性的缓存测试
+      只要 computed 中的属性不变, 就只会调用一次,
+      直到某个属性改变, 就会再次调用
+      可以在浏览器控制台测试改变数据后的输出
+  -->
+  <!-- computed -->
+  <h2>{{fullName}}</h2>
+  <h2>{{fullName}}</h2>
+  <h2>{{fullName}}</h2>
+  <br/>
+  <!-- methods -->
+  <h2>{{getFullName()}}</h2>
+  <h2>{{getFullName()}}</h2>
+  <h2>{{getFullName()}}</h2>
+</div>
+
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+  const app = new Vue({
+    el: '#app',
+    data: {
+      message: '',
+      firstName: 'jack',
+      lastName: 'rose'
+    },
+    methods: {
+      getFullName: function () {
+        console.log("methods");
+        return this.firstName + ' ' + this.lastName;
+      }
+    },
+    computed: {
+      fullName: function () {
+        console.log('computed');
+        return this.firstName + ' ' + this.lastName;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
